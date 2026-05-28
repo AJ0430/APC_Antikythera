@@ -46,3 +46,11 @@ LOCATION TEXT NOT NULL)
 ;"""
 
 cursor.execute(sql_command)
+
+sql_command = """CREATE TABLE IF NOT EXISTS Zodiac_Constellations(
+NAME TEXT NOT NULL PRIMARY KEY,
+DATE_START TEXT NOT NULL,
+DATE_END TEXT NOT NULL)
+;"""
+
+cursor.execute(sql_command)
