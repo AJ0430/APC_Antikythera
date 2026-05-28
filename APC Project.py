@@ -54,3 +54,6 @@ DATE_END TEXT NOT NULL)
 ;"""
 
 cursor.execute(sql_command)
+
+database.commit()
+database.close()
