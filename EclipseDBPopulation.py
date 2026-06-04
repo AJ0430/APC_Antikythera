@@ -2,7 +2,54 @@ import sqlite3
 
 database = sqlite3.connect("AntikytheraSystem.db")
 cursor = database.cursor()
-
+sql_command = """CREATE TABLE IF NOT EXISTS Eclipses('Solar','2/5/2000', 'Antarctica');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '7/1/2000', 'South Pacific Ocean, South America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '7/31/2000', 'Asia, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '12/25/2000', 'Central America, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '6/21/2001', 'Africa, South America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '12/14/2001', 'Central America, North America, South America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '6/10/2002', 'Asia, Australia, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '12/4/2002', 'Africa, Antarctica, Indonesia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '5/31/2003', 'Europe, Asia, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/23/2003', 'Australia, New Zealand, Antarctica, South America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '5/19/2004', 'Antarctica, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '10/14/2004', 'Asia, Hawaii, Alaska');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '4/8/2005', 'New Zealand, North America, South America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '10/3/2005', 'Africa, Europe, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '3/29/2006', 'Africa, Europe, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '9/22/2006', 'South America, Africa, Antarctica');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '3/19/2007', 'Asia, Alaska');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '9/11/2007', 'South America, Antarctica');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '2/7/2008', 'Asia, Australia, New Zealand');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '8/1/2008', 'North America, Europe, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '1/26/2009', 'Africa, Antarctica, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '7/22/2009', 'Asia, Pacific Ocean, Hawaii');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '1/15/2010', 'Africa, Asia');""" 
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '6/11/2010', 'South America');"""
+cursor.execute(sql_command)
 sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '1/4/2011', 'Europe, Africa, Asia');"""
 cursor.execute(sql_command)
 sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '6/1/2011', 'Asia, North America, Iceland');"""
