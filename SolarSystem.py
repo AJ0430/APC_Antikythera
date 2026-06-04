@@ -1,15 +1,20 @@
 import solarsystem as ss
 import datetime
+from zoneinfo import ZoneInfo
 
-now    = datetime.datetime.utcnow()
-now    = datetime.datetime.now(datetime.timezone.utc)
+tz = ZoneInfo("America/New_York")
+now    = datetime.datetime.now(datetime.UTC)
 
 
 
-
+def daylightSavings(year, month, day, hour, minute):
+    dst = datetime.datetime(year, month, day, hour, minute, tzinfo=tz)
+    dst = f"{dst.dst()}"
+    hours, minutes, seconds = map(int, dst.split(":"))
+    return hours
 def moonphase(year,month,day,hour,minute):
-    mooninfo = ss.Moon(year, month, day, hour, minute, -5, 0, -71.0571, 42.3611, True)
-    moonchange = ss.Moon(year, month, day-1, hour, minute, -5, 0, -71.0571, 42.3611, True)
+    mooninfo = ss.Moon(year, month, day, hour, minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
+    moonchange = ss.Moon(year, month, day-1, hour, minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
     phase = ""
     if(mooninfo.phase() > moonchange.phase()):
         phase = "Waxing"
@@ -31,7 +36,7 @@ def moonphase(year,month,day,hour,minute):
     #Returns an array with the whether the moon is waxing or waning, and the current phase of the moon
 
 def moon(year, month, day, hour, minute):
-    mooninfo = ss.Moon(year, month, day, hour, minute, -5, 0, -71.0571, 42.3611, True)
+    mooninfo = ss.Moon(year, month, day, hour, minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
     moonpos = mooninfo.position()
     moonpos = ss.spherical2rectangular(moonpos[0],moonpos[1],moonpos[2])
     return moonpos
@@ -43,7 +48,7 @@ def planets(year,month,day,hour,minute):
     #Returns a dictionary of planets and their rectangular coordinates (X,Y,Z)
 
 def sunriseSet(year, month, day):
-    sun = ss.Sunriseset(year, month, day, -5, 0, -71.0571, 42.3611)
+    sun = ss.Sunriseset(year, month, day, -5, daylightSavings(year,month,day,12,0), -71.0571, 42.3611)
     return sun.riseset()
 
 
