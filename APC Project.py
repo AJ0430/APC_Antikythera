@@ -47,6 +47,14 @@ LOCATION TEXT NOT NULL)
 
 cursor.execute(sql_command)
 
+sql_command = """CREATE TABLE IF NOT EXISTS Zodiac_Constellations(
+NAME TEXT NOT NULL PRIMARY KEY,
+DATE_START TEXT NOT NULL,
+DATE_END TEXT NOT NULL)
+;"""
+
+cursor.execute(sql_command)
+
 sql_command = """INSERT OR IGNORE INTO Moons VALUES('The Moon', 1737.5, 7.35e22, 1.62, NULL, 'Earth');"""
 cursor.execute(sql_command)
 
