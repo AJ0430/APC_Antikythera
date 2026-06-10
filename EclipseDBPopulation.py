@@ -142,6 +142,20 @@ sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '12/5/2029', 'Ch
 cursor.execute(sql_command)
 sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/25/2030', 'Africa, Indian Ocean, East Indies, Australia, Antarctica');"""
 cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '5/21/2031', 'Africa, Asia, East Indies, Austalia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/14/2031', 'Pacific, North America, Central America, South America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '5/9/2032', 'South America, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/3/2032', 'Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '3/30/2033', 'North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/23/2033', 'South America, Antarctica');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '', '');"""
+cursor.execute(sql_command)
 
 database.commit()
 database.close()
