@@ -1,0 +1,164 @@
+import sqlite3
+import math
+
+db_folder = "Database Stuff/"
+database = sqlite3.connect(db_folder + "AntikytheraSystem.db")
+cursor = database.cursor()
+
+sql_command = """CREATE TABLE IF NOT EXISTS Planets (
+NAME TEXT NOT NULL PRIMARY KEY,
+RADIUS[km] REAL NOT NULL,
+MASS[kg] REAL NOT NULL,
+PLANET_TYPE TEXT NOT NULL,
+GRAVITATIONAL_PULL[m/s^2] REAL NOT NULL,
+AVG_SURFACE_TEMP[°C] REAL NOT NULL,
+DISTANCE_TO_SUN[AU] REAL NOT NULL,
+ORBITAL_POSITION TEXT,
+NUMBER_OF_MOONS INTEGER NOT NULL,
+ORBITAL_PERIOD[Earth years] REAL NOT NULL,
+;"""
+
+cursor.execute(sql_command)
+
+sql_command = """CREATE TABLE IF NOT EXISTS Moons(
+NAME TEXT NOT NULL PRIMARY KEY,
+RADIUS INTEGER NOT NULL,
+MASS INTEGER NOT NULL,
+GRAVITATIONAL_PULL INTEGER NOT NULL,
+ORBITAL_POSITION TEXT,
+ORBITED_PLANET TEXT NOT NULL)
+;"""
+
+cursor.execute(sql_command)
+
+sql_command = """CREATE TABLE IF NOT EXISTS Small_Bodies(
+NAME TEXT NOT NULL PRIMARY KEY,
+TYPE TEXT NOT NULL,
+POSITION TEXT NOT NULL,
+SIZE INTEGER NOT NULL,
+SPEED INTEGER NOT NULL)
+;"""
+
+cursor.execute(sql_command)
+
+sql_command = """CREATE TABLE IF NOT EXISTS Eclipses(
+TYPE TEXT NOT NULL,
+DATE TEXT NOT NULL PRIMARY KEY,
+LOCATION TEXT NOT NULL)
+;"""
+
+cursor.execute(sql_command)
+
+sql_command = """CREATE TABLE IF NOT EXISTS Zodiac_Constellations(
+NAME TEXT NOT NULL PRIMARY KEY,
+DATE_START TEXT NOT NULL,
+DATE_END TEXT NOT NULL)
+;"""
+
+cursor.execute(sql_command)
+
+#Adding in Planet Data to table
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Mercury', 2439.5, 3.29e23, 'Terrestrial', 3.7, 254, 0.39, NULL, 0, 0.24);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Venus', 6052, 4.87e24, 'Terrestrial', 8.87, 462, 0.73, NULL, 0, 0.62);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Earth', 6371, 5.97e24, 'Terrestrial', 9.81, 15, 1, NULL, 1, 1);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Mars', 3389.5, 6.42e23, 'Terrestrial', 3.71, -65, 1.38, NULL, 2, 1.9);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Jupiter', 79492, 1.90e27, 'Gas Giant', 24.79, -108, 5.20, NULL, 95, 11.86);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Saturn', 60268, 5.68e26, 'Gas Giant', 10.44, -139, 9.58, NULL, 274, 29.46);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Uranus', 25559, 8.68e25, 'Ice Giant', 8.69, -197, 19.22, NULL, 27, 84);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Neptune', 24629, 1.02e26, 'Ice Giant', 11.15, -201, 30.10, NULL, 14, 164.8);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Planets VALUES ('Pluto', 1186, 1.31e22, 'Dwarf Planet', 0.62, -229, 39.26, NULL, 5, 248);"""
+cursor.execute(sql_command)
+
+
+#Adding in Moon Data to Table
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('The Moon', 1737.5, 7.35e22, 1.62, NULL, 'Earth');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Titan', 2574.7, 1.35e23, 1.35, NULL, 'Saturn');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Callisto', 4410.3, 1.08e23, 1.24, NULL, 'Jupiter');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Io', 1821.6, 8.93e22, 1.80, NULL, 'Jupiter');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Europa', 1560.8, 4.80e22, 1.31, NULL, 'Jupiter');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Triton', 1353.4, 2.14e22, 0.78, NULL, 'Neptune');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Deimos', 6.2, 1.48e15, 0.003, NULL, 'Mars');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Moons VALUES('Titania', 788.9, 3.53e21, 0.38, NULL, 'Uranus');"""
+cursor.execute(sql_command)
+
+
+#Adding in Small Body Data to Table
+
+
+#Addomg in Eclipse Data to Table
+
+
+#Adding in Zodiac Constellation Data to Table
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Aries', 'April 19', 'May 13');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Taurus', 'May 14', 'June 19');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Gemini', 'June 20', 'July 20');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Cancer', 'July 21', 'August 9');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Leo', 'August 10', 'September 15');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Virgo', 'September 16', 'October 30');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Libra', 'October 31', 'November 22');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Scorpio', 'November 23', 'November 29');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Ophiuchus', 'November 30', 'December 17');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Sagittarius', 'December 18', 'January 18');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Capricorn', 'January 19', 'February 15');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Aquarius', 'February 16', 'March 11');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Zodiac_Constellations VALUES('Pisces', 'March 12', 'April 18');"""
+cursor.execute(sql_command)
+
+database.commit()
+
+database.close()
+
