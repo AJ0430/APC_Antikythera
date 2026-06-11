@@ -61,20 +61,15 @@ def open_CometsAsteroids_window():
     top.geometry("600x600")  
 
 # Define a label for the list.  
-    label = Label(top, text = "Planets in the Solar System") 
+    label = Label(top, text = "Small Bodies in the Solar System") 
 
 # insert elements by their
 # index and names.
-    cometsAndAsteroidsSelect.insert(1, "Mercury")
-    cometsAndAsteroidsSelect.insert(2, "Venus")
-    cometsAndAsteroidsSelect.insert(3, "Earth")
-    cometsAndAsteroidsSelect.insert(4, "Mars")
-    cometsAndAsteroidsSelect.insert(5, "Jupiter")
-    cometsAndAsteroidsSelect.insert(6, "Saturn")
-    cometsAndAsteroidsSelect.insert(7, "Uranus")
-    cometsAndAsteroidsSelect.insert(8, "Neptune")
-    cometsAndAsteroidsSelect.insert(9, "Pluto")
-
+    cometsAndAsteroidsSelect.insert(1, "Comet McNaught")
+    cometsAndAsteroidsSelect.insert(2, "Halley's Comet")
+    cometsAndAsteroidsSelect.insert(3, "Apophis Asteroid")
+    cometsAndAsteroidsSelect.insert(4, "Comet Neowise")
+    cometsAndAsteroidsSelect.insert(5, "Comet Tsuchinshan-ATLAS")
 # pack the widgets
     label.pack()
     cometsAndAsteroidsSelect.pack()
