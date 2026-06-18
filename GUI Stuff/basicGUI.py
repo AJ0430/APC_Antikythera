@@ -56,7 +56,15 @@ def open_CometsAsteroids_window():
     cometsAndAsteroidsSelect.insert(3, "Apophis Asteroid")
     cometsAndAsteroidsSelect.insert(4, "Comet Neowise")
     cometsAndAsteroidsSelect.insert(5, "Comet Tsuchinshan-ATLAS")
+
+# Print out the information related to small bodies
+    def selected_item():
+        for i in cometsAndAsteroidsSelect.curselection():
+            print(cometsAndAsteroidsSelect.get(i))
+    btn = Button(top, text='Information', command=selected_item)
+
 # pack the widgets
+    btn.pack(side='bottom')
     label.pack()
     cometsAndAsteroidsSelect.pack()
 
