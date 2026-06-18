@@ -130,7 +130,7 @@ cursor.execute(sql_command)
 
 
 #Adding in Eclipse Data to Table
-#Solar eclipses from 2000-2033, data from https://eclipse.gsfc.nasa.gov/
+#Solar eclipses from 2000-2030, data from https://eclipse.gsfc.nasa.gov/
 sql_command = """CREATE TABLE IF NOT EXISTS Eclipses('Solar','2/5/2000', 'Antarctica');"""
 cursor.execute(sql_command)
 sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '7/1/2000', 'South Pacific Ocean, South America');"""
@@ -269,17 +269,148 @@ sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '12/5/2029', 'Ch
 cursor.execute(sql_command)
 sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/25/2030', 'Africa, Indian Ocean, East Indies, Australia, Antarctica');"""
 cursor.execute(sql_command)
-sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '5/21/2031', 'Africa, Asia, East Indies, Austalia');"""
+
+#Lunar eclipses from 2000-2030, data from https://eclipse.gsfc.nasa.gov/
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '1/21/2000', 'Pacific, Americas, Europe, Africa');"""
 cursor.execute(sql_command)
-sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/14/2031', 'Pacific, North America, Central America, South America');"""
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/16/2000', 'Asia, Pacific Americas');"""
 cursor.execute(sql_command)
-sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '5/9/2032', 'South America, Africa');"""
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '1/9/2001', 'Americas, Europe, Africa, Asia');"""
 cursor.execute(sql_command)
-sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/3/2032', 'Asia');"""
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/5/2001', 'Africa, Asia, Australia, Pacific');"""
 cursor.execute(sql_command)
-sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '3/30/2033', 'North America');"""
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/30/2001', 'Asia, Pacific, Australia, Americas');"""
 cursor.execute(sql_command)
-sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '11/23/2033', 'South America, Antarctica');"""
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/26/2002', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/24/2002', 'South America, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/20/2002', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/16/2003', 'Pacific, Americas, Europe, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/9/2003', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/4/2004', 'South America, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '10/28/2004', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '4/24/2005', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '10/17/2005', 'Asia, Australia, Pacific, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '3/14/2006', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '9/7/2006', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '3/3/2007', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '8/28/2007', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '2/21/2008', 'Americas, Europe, Africa, Atlantic');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '8/16/2008', 'South America, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '2/9/2009', 'Europe, Asia, Australia, Pacific, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '8/6/2009', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/31/2009', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/26/2010', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/21/2010', 'Asia, Australia, Pacific, Americas, Europe');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/15/2011', 'South America, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/10/2011', 'Europe, Africa, Asia, Australia, Pacific, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/4/2012', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/28/2012', 'Europe, Africa, Asia, Australia, Pacific, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '4/25/2013', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '10/18/2013', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '4/15/2014', 'Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '10/8/2014', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '4/4/2015', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/28/2015', 'Pacific, Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '3/23/2016', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/16/2016', 'Europe, Africa, Asia, Australia, Pacific');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '2/11/2017', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '8/7/2017', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '1/31/2018', 'Asia, Australia, Pacific, North America');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/27/2018', 'South America, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '1/21/2019', 'Pacific, Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/16/2019', 'South America, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '1/10/2020', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/5/2020', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/5/2020', 'Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/20/2020', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/26/2021', 'Asia, Australia, PAcific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/19/2021', 'Americas, Europe, Asia, Australia, Pacific');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/16/2022', 'Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '11/8/2022', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/5/2023', 'Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '10/28/2023', 'Americas, Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '5/25/2024', 'Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '9/18/2024', 'Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '3/14/2025', 'Pacific, Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '9/7/2025', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '3/3/2026', 'Asia, Australia, Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '8/28/2026', 'Pacific, Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '2/20/2027', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/18/2027', 'Africa, Asia, Australia, Pacific');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '8/17/2027', 'Pacific, Americas');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '1/12/2028', 'Americas, Europe, Africa');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '7/6/2028', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/31/2028', 'Europe, Africa, Asia, Australia, Pacific');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/26/2029', 'Americas, Europe, Africa, Mid East');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/20/2029', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '6/15/2030', 'Europe, Africa, Asia, Australia');"""
+cursor.execute(sql_command)
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '12/9/2030', 'Americas, Europe, Africa, Asia');"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Lunar', '', '');"""
 cursor.execute(sql_command)
 
 
