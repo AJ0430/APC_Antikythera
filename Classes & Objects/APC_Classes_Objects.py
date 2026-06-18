@@ -51,9 +51,48 @@ class moons(solarBodies):
         print(f'Orbital Position: {self.orbitalPostion}')
         print(f'Planet Orbiting: {self.planetOrbiting}')
 
-#EX: creating an instance of the Moon class for Titan by fetching its information from the database and printing it
-cursor.execute("SELECT * FROM Moons WHERE NAME = 'Titan'")  # (query) tells the db to search the MOONS table for the row where the NAME column is 'Titan' and return all columns of that row
-titaninfo = cursor.fetchone()   # (fetchone) retrieves the first row of the result of the query and stores it in the variable titaninfo as a tuple [tuple =list]
-Titan = moons(titaninfo[0], titaninfo[1], titaninfo[2], titaninfo[3], titaninfo[4], titaninfo[5])   # creates an instance of the Moon class called Titan by passing the values from the titaninfo tuple to the constructor of the Moons class
+# Create a list used to store the moon objects, create an object for each moon using data from the MOONS table in the database, then st
+moonsList = []
 
-Titan.printInfo()   # calls the printInfo method of the Titan object to display all its information in a readable format
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'The Moon'")
+mooninfo = cursor.fetchone()
+Moon = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Moon)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Titan'")  # (query) tells the db to search the MOONS table for the row where the NAME column is 'Titan' and return all columns of that row
+mooninfo = cursor.fetchone()   # (fetchone) retrieves the first row of the result of the query and stores it in the variable titaninfo as a tuple [tuple =list]
+Titan = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])   # creates an instance of the Moon class called Titan by passing the values from the titaninfo tuple to the constructor of the Moons class
+moonsList.append(Titan)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Callisto'")
+mooninfo = cursor.fetchone()
+Callisto = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Callisto)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Io'")
+mooninfo = cursor.fetchone()
+Io = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Io)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Europa'")
+mooninfo = cursor.fetchone()
+Europa = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Europa)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Triton'")
+mooninfo = cursor.fetchone()
+Triton = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Triton)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Deimos'")
+mooninfo = cursor.fetchone()
+Deimos = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Deimos)
+
+cursor.execute("SELECT * FROM Moons WHERE NAME = 'Titania'")
+mooninfo = cursor.fetchone()
+Titania = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
+moonsList.append(Titania)
+
+for item in moonsList:
+    print(vars(item))
