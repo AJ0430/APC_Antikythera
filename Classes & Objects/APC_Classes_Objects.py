@@ -50,7 +50,6 @@ class moons(solarBodies):
         print(f'Gravitational Pull: {self.gravitationalPull} m/s^2')
         print(f'Orbital Position: {self.orbitalPostion}')
         print(f'Planet Orbiting: {self.planetOrbiting}')
-gi
 # Create a list used to store the moon objects, create an object for each moon using data from the MOONS table in the database, then st
 moonsList = []
 
