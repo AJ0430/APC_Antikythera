@@ -4,6 +4,7 @@ from tkinter.ttk import *
 from time import strftime
 from tkinter import ttk
 from turtle import title
+from tkinter import messagebox
 
 
 # planet selection window (obsolete?)
@@ -57,11 +58,17 @@ def open_CometsAsteroids_window():
     cometsAndAsteroidsSelect.insert(4, "Comet Neowise")
     cometsAndAsteroidsSelect.insert(5, "Comet Tsuchinshan-ATLAS")
 
-# Print out the information related to small bodies
-    def selected_item():
+# Print out the information related to small bodies im messing with this so it can add a text box that explains the small body within the database
+    def small_bodies_info_window():
         for i in cometsAndAsteroidsSelect.curselection():
-            print(cometsAndAsteroidsSelect.get(i))
-    btn = Button(top, text='Information', command=selected_item)
+            smallbodyselect = cometsAndAsteroidsSelect.get(i)
+        new_window = tk.Toplevel(root)
+        new_window.title(f"{smallbodyselect}")
+        new_window.geometry("720x480")
+        Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=("Comic Sans MS", 15))
+        Title.pack(pady=0)
+
+    btn = Button(top, text='Information', command=small_bodies_info_window)
 
 # pack the widgets
     btn.pack(side='bottom')
