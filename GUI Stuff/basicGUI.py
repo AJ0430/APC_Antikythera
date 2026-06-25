@@ -5,6 +5,7 @@ from time import strftime
 from tkinter import ttk
 from turtle import title
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 
 # planet selection window (obsolete?)
@@ -60,14 +61,26 @@ def open_CometsAsteroids_window():
 
 # Print out the information related to small bodies im messing with this so it can add a text box that explains the small body within the database
     def small_bodies_info_window():
+
+        # Gets the users selection in the list
         for i in cometsAndAsteroidsSelect.curselection():
             smallbodyselect = cometsAndAsteroidsSelect.get(i)
+        
+        # opens a new window for the small bodies
         new_window = tk.Toplevel(root)
         new_window.title(f"{smallbodyselect}")
         new_window.geometry("720x480")
-        Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=("Comic Sans MS", 15))
-        Title.pack(pady=0)
 
+        # Window content
+        Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=("Comic Sans MS", 15))
+        comet_img = Image.open(f"Resources/Small bodies/{smallbodyselect}.jpg")
+        resized_image = comet_img.resize((320, 240), Image.LANCZOS)
+        tk_image = ImageTk.PhotoImage(resized_image)
+        image_label.image = tk_image
+        image_label = tk.Label(new_window, image=tk_image)
+        image_label.pack(pady=0)
+        Title.pack(pady=20)
+        
     btn = Button(top, text='Information', command=small_bodies_info_window)
 
 # pack the widgets
