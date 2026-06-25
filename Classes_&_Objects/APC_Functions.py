@@ -53,3 +53,30 @@ def showPlanetInfo(buttonName):
         cursor.execute("""SELECT * FROM Planets WHERE NAME = 'Pluto'""")
         planetInfo = cursor.fetchone()
 
+def showMoonInfo(buttonName):
+    if buttonName == 'Moon':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Moon'""")
+        moonInfo = cursor.fetchone()
+# from here on out, the code will be for the other moons of the solar system, which may be added later on
+    elif buttonName == 'Phobos':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Phobos'""")
+        moonInfo = cursor.fetchone()
+    elif buttonName == 'Deimos':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Deimos'""")
+        moonInfo = cursor.fetchone()
+    elif buttonName == 'Io':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Io'""")
+        moonInfo = cursor.fetchone()
+    elif buttonName == 'Europa':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Europa'""")
+        moonInfo = cursor.fetchone()
+    elif buttonName == 'Ganymede':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Ganymede'""")
+        moonInfo = cursor.fetchone()
+    elif buttonName == 'Callisto':
+        cursor.execute("""SELECT * FROM Moons WHERE NAME = 'Callisto'""")
+        moonInfo = cursor.fetchone()
+
+    # functions remaining:
+    # Orb. posistion - determined by solar_lib library that Ashton has implemented
+    # cant think of any more functions to add at the moment, but if I do think of any I will add them here
