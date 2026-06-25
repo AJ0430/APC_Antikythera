@@ -1,7 +1,7 @@
 import sqlite3
 
 # tells the program to connect to the database and creates a cursor to execute commands
-conn = sqlite3.connect('Database Stuff/AntikytheraSystem.db')
+conn = sqlite3.connect("Database_Stuff/AntikytheraSystem.db")
 cursor = conn.cursor()
 
 # creates a base class called SolarBodies with the common attributes of all solar bodies
