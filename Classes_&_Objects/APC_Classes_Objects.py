@@ -50,14 +50,6 @@ class moons(solarBodies):
         print(f'Gravitational Pull: {self.gravitationalPull} m/s^2')
         print(f'Orbital Position: {self.orbitalPostion}')
         print(f'Planet Orbiting: {self.planetOrbiting}')
-
-#EX: creating an instance of the Moon class for Titan by fetching its information from the database and printing it
-cursor.execute("SELECT * FROM Moons WHERE NAME = 'Titan'")  # (query) tells the db to search the MOONS table for the row where the NAME column is 'Titan' and return all columns of that row
-titaninfo = cursor.fetchone()   # (fetchone) retrieves the first row of the result of the query and stores it in the variable titaninfo as a tuple [tuple =list]
-Titan = moons(titaninfo[0], titaninfo[1], titaninfo[2], titaninfo[3], titaninfo[4], titaninfo[5])   # creates an instance of the Moon class called Titan by passing the values from the titaninfo tuple to the constructor of the Moons class
-# Titan.printInfo()   # calls the printInfo method of the Titan object to display all its information in a readable format
-
-
 # Create a list used to store the moon objects, create an object for each moon using data from the MOONS table in the database, then st
 moonsList = []
 
