@@ -79,6 +79,9 @@ def planet_selection():
     planetSelect.insert(9, "Pluto")
     
 def solarSystemView():
+    my_turtle.showturtle()
+    my_turtle.shape("circle")
+    my_turtle.color("yellow")
     mercury = Planet("Mercury", 40, 'grey')
     solarSystem = [mercury]
     
@@ -97,17 +100,9 @@ canvas = tk.Canvas(root, width=800, height=200, bg='white')
 canvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
 screen = turtle.TurtleScreen(canvas)
-#screen.tracer(50)
 my_turtle = turtle.RawTurtle(screen)
-#my_turtle2 = turtle.RawTurtle(screen)
+my_turtle.hideturtle()
 
-my_turtle.shape("circle")
-my_turtle.color("yellow")
-
-#my_turtle2.shape("circle")
-#my_turtle2.color("blue")
-#my_turtle2.goto(100, 0)
-# Creating Menubar
 menubar = Menu(root)
 
 # Adding File Menu and commands
