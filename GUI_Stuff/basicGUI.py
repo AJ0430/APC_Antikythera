@@ -5,7 +5,23 @@ from time import strftime
 from tkinter import ttk
 import turtle
 from turtle import title
-from solarSystemView import *
+from math import *
+
+class Planet(turtle.RawTurtle):
+    def __init__(self, name, radius, color):
+        super().__init__(screen, shape='circle')
+        self.name = name
+        self.radius = radius
+        self.c = color
+        self.color(self.c)
+        self.up()
+        self.pd()
+        self.angle = 0
+    def move(self):
+        x = self.radius*cos(self.angle) #Angle in radians
+        y = self.radius*sin(self.angle)
+        
+        self.goto(my_turtle.xcor()+x, my_turtle.ycor()+y)
 
 #asteroid and comet selection window
 def open_CometsAsteroids_window():
@@ -63,30 +79,34 @@ def planet_selection():
     planetSelect.insert(9, "Pluto")
     
 def solarSystemView():
-    title = ttk.Label(text = "Solar System", font=("Arial", 20))
-    title.pack(pady=10, anchor="n")
-    
-    screen = turtle.Screen()
-    screen.tracer(50)
-    
-    sun.shape('circle')
-    sun.color('yellow')
-    
     mercury = Planet("Mercury", 40, 'grey')
-    
     solarSystem = [mercury]
     
     while True: #placeholder to calculate angle based on date entered
-        screen.update()
+        canvas.update()
         for i in solarSystem:
             i.move()
         mercury.angle += 0.05
     
 # creating main window
-root = Tk()
+root = tk.Tk()
 root.title('Antikythera')
 root.geometry("1200x600")
 
+canvas = tk.Canvas(root, width=800, height=200, bg='white')
+canvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+
+screen = turtle.TurtleScreen(canvas)
+#screen.tracer(50)
+my_turtle = turtle.RawTurtle(screen)
+#my_turtle2 = turtle.RawTurtle(screen)
+
+my_turtle.shape("circle")
+my_turtle.color("yellow")
+
+#my_turtle2.shape("circle")
+#my_turtle2.color("blue")
+#my_turtle2.goto(100, 0)
 # Creating Menubar
 menubar = Menu(root)
 
