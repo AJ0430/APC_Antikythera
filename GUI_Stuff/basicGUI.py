@@ -3,37 +3,15 @@ from tkinter import *
 from tkinter.ttk import * 
 from time import strftime
 from tkinter import ttk
+import turtle
 from turtle import title
-
-
-# planet selection window (obsolete?)
-def open_planet_window():
-
- # Create a popup window
-    popup = tk.Toplevel(root)
-    #popup.overrideredirect(True)
-    popup.geometry("300x200")
-
-    # Create a Listbox inside the popup
-    planetSelect = tk.Listbox(popup)
-    planetSelect.pack(fill="both", expand=True)
-
-    planetSelect.insert(1, "Mercury")
-    planetSelect.insert(2, "Venus")
-    planetSelect.insert(3, "Earth")
-    planetSelect.insert(4, "Mars")
-    planetSelect.insert(5, "Jupiter")
-    planetSelect.insert(6, "Saturn")
-    planetSelect.insert(7, "Uranus")
-    planetSelect.insert(8, "Neptune")
-    planetSelect.insert(9, "Pluto")
+from solarSystemView import *
 
 #asteroid and comet selection window
 def open_CometsAsteroids_window():
 # select an option from a menu
 # create a root window.
     top = tk.Tk()
-
 
 # create listbox object
     cometsAndAsteroidsSelect = Listbox(top, height = 10, 
@@ -83,10 +61,27 @@ def planet_selection():
     planetSelect.insert(7, "Uranus")
     planetSelect.insert(8, "Neptune")
     planetSelect.insert(9, "Pluto")
-
-
-
-
+    
+def solarSystemView():
+    title = ttk.Label(text = "Solar System", font=("Arial", 20))
+    title.pack(pady=10, anchor="n")
+    
+    screen = turtle.Screen()
+    screen.tracer(50)
+    
+    sun.shape('circle')
+    sun.color('yellow')
+    
+    mercury = Planet("Mercury", 40, 'grey')
+    
+    solarSystem = [mercury]
+    
+    while True: #placeholder to calculate angle based on date entered
+        screen.update()
+        for i in solarSystem:
+            i.move()
+        mercury.angle += 0.05
+    
 # creating main window
 root = Tk()
 root.title('Antikythera')
@@ -102,6 +97,10 @@ planets.add_command(label="Open Planet selection", command=planet_selection)
 planets.add_separator()
 planets.add_command(label ='Exit', command = root.destroy)
 
+solarSystemMenu = Menu(menubar, tearoff=0)
+menubar.add_command(label="Solar System View", command=solarSystemView)
+solarSystemMenu.add_separator()
+solarSystemMenu.add_command(label='Exit', command = root.destroy)
 
 # Adding File Menu and commands
 cometsAndAsteroids = Menu(menubar, tearoff = 0)
@@ -117,9 +116,6 @@ command.add_separator()
 command.add_command(label ='Exit Program', command = root.destroy)
 
 planet_selection
-
-
-
 
 # display Menu
 root.config(menu = menubar)
