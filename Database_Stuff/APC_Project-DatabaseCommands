@@ -1,7 +1,7 @@
 import sqlite3
 import math
 
-db_folder = "Database Stuff/"
+db_folder = "Database_Stuff/"
 database = sqlite3.connect(db_folder + "AntikytheraSystem.db")
 cursor = database.cursor()
 
@@ -36,7 +36,10 @@ NAME TEXT NOT NULL PRIMARY KEY,
 TYPE TEXT NOT NULL,
 POSITION TEXT NOT NULL,
 SIZE INTEGER NOT NULL,
-SPEED INTEGER NOT NULL)
+SPEED INTEGER NOT NULL,
+DATE_START TEXT NOT NULL,
+DATE_END TEXT NOT NULL,
+YEAR INTEGER NOT NULL)
 ;"""
 
 cursor.execute(sql_command)
@@ -113,19 +116,25 @@ cursor.execute(sql_command)
 
 
 #Adding in Small Body Data to Table
-sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('McNaught', 'Comet', 'Oort Cloud', 1.58, 101.9);"""
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('McNaught', 'Comet', 'Oort Cloud', 1.58, 101.9, 'January' , 'February', 2007);"""
 cursor.execute(sql_command)
 
-sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Halley', 'Comet', 'Inner and Outer Belt', 3.4, 55);"""
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Halley', 'Comet', 'Inner and Outer Belt', 3.4, 55, 'January', 'April', 1986);"""
 cursor.execute(sql_command)
 
-sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Apophis', 'Asteroid', 'Solar System', 0.185, 30.73);"""
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Apophis', 'Asteroid', 'Solar System', 0.185, 30.73, 'April', 'April', 2029);"""
 cursor.execute(sql_command)
 
-sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Neowise', 'Comet', 'Solar System', 2.5, 1.5);"""
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Neowise', 'Comet', 'Solar System', 2.5, 1.5, 'July', 'July', 2020);"""
 cursor.execute(sql_command)
 
-sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Tsuchinshan-ATLAS', 'Comet', 'Solar System', 5.9, 67.33);"""
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Tsuchinshan-ATLAS', 'Comet', 'Solar System', 5.9, 67.33, 'September', 'September', 2024);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Ceres', 'Asteroid', 'Main Asteroid Belt', 469.7, 17.9, 'Not Visible', 'Not Visible', 0);"""
+cursor.execute(sql_command)
+
+sql_command = """INSERT OR IGNORE INTO SmallBodies VALUES('Vesta', 'Asteroid', 'Main Asteroid Belt', 525.4, 19.34, 'Not Visible', 'Not Visible', 0);"""
 cursor.execute(sql_command)
 
 
