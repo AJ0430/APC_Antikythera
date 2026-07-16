@@ -80,8 +80,10 @@ def planet_selection():
     
 def solarSystemView():
     my_turtle.showturtle()
+    my_turtle.pendown()
     my_turtle.shape("circle")
     my_turtle.color("yellow")
+    
     mercury = Planet("Mercury", 40, 'grey')
     venus = Planet("Venus",80, 'orange')
     earth=Planet("Earth",100,'blue')
@@ -90,7 +92,7 @@ def solarSystemView():
     saturn=Planet("Saturn",230, 'pink')
     uranus=Planet("Uranus",250, 'light blue')
     neptune=Planet("Neptune",280, 'black')
-    pluto=Planet("Pluto",300, 'white')
+    pluto=Planet("Pluto",300, 'green')
     solarSystem = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto]
     
     while True: #placeholder to calculate angle based on date entered
@@ -110,13 +112,15 @@ def solarSystemView():
 # creating main window
 root = tk.Tk()
 root.title('Antikythera')
-root.geometry("1200x600")
+root.geometry("1920x1080")
 
-canvas = tk.Canvas(root, width=800, height=200, bg='white')
-canvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+canvas = tk.Canvas(root, width=1920, height=1080, bg='white')
+canvas.pack()
 
 screen = turtle.TurtleScreen(canvas)
 my_turtle = turtle.RawTurtle(screen)
+my_turtle.penup()
+my_turtle.setposition(0, 0)
 my_turtle.hideturtle()
 
 menubar = Menu(root)
