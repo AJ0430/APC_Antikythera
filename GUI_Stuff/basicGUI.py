@@ -9,11 +9,11 @@ from math import *
 
 #Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
 from tkinter import messagebox
-#from PIL import Image, ImageTk
+from PIL import Image, ImageTk
 import sqlite3
 
-#database = sqlite3.connect("Database_Stuff/AntikytheraSystem.db")
-#cursor = database.cursor()
+database = sqlite3.connect("Database_Stuff/AntikytheraSystem.db")
+cursor = database.cursor()
 
 
 class Planet(turtle.RawTurtle):
