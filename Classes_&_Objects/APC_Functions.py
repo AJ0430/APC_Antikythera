@@ -12,11 +12,8 @@ cursor = database.cursor()
 print(f"Mercury Mass: {classes.Mercury.mass}")
 
 # creating the zodiac sign function
-<<<<<<< HEAD
-def showZodiacSigns(GUI.year, GUI.month, GUI.day):
+# def showZodiacSigns(GUI.year, GUI.month, GUI.day):
     # start here
-
-=======
 
 def monthConversion(month):
     monthNumber = 0
@@ -44,14 +41,7 @@ def monthConversion(month):
         monthNumber = 11
     elif (month == 'December'):
         monthNumber = 12
-
-def showEclipses(year, month, day): # If given date results in an eclipse display it in the bottom left of the GUI.
-    cursor.execute("""SELECT * FROM Eclipses WHERE DATE = '?' + '/' + '?' + '/' + '?'""", (month, day, year))
-    if cursor.fetchone() != None:
-        eclipseInfo = cursor.fetchone()
-        print(eclipseInfo[0])
-        print(eclipseInfo[1])
-        print(eclipseInfo[2])
+    
     return monthNumber
 
 def showEclipses(month, day, year): # If given date results in an eclipse display it in the bottom left of the GUI.
@@ -124,5 +114,4 @@ def showMoonInfo(buttonName):
     # functions remaining:
     # Orb. posistion - determined by solar_lib library that Ashton has implemented
     # cant think of any more functions to add at the moment, but if I do think of any I will add them here
->>>>>>> main
 showEclipses('February', 5, 2000)
