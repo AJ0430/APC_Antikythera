@@ -18,6 +18,32 @@ def showZodiacSigns(GUI.year, GUI.month, GUI.day):
 
 =======
 
+def monthConversion(month):
+    monthNumber = 0
+    if (month == 'January'):
+        monthNumber = 1
+    elif (month == 'February'):
+        monthNumber = 2
+    elif (month == 'March'):
+        monthNumber = 3
+    elif (month == 'April'):
+        monthNumber = 4
+    elif (month == 'May'):
+        monthNumber = 5
+    elif (month == 'June'):
+        monthNumber = 6
+    elif (month == 'July'):
+        monthNumber = 7
+    elif (month == 'August'):
+        monthNumber = 8
+    elif (month == 'September'):
+        monthNumber = 9
+    elif (month == 'October'):
+        monthNumber = 10
+    elif (month == 'November'):
+        monthNumber = 11
+    elif (month == 'December'):
+        monthNumber = 12
 
 def showEclipses(year, month, day): # If given date results in an eclipse display it in the bottom left of the GUI.
     cursor.execute("""SELECT * FROM Eclipses WHERE DATE = '?' + '/' + '?' + '/' + '?'""", (month, day, year))
@@ -26,6 +52,19 @@ def showEclipses(year, month, day): # If given date results in an eclipse displa
         print(eclipseInfo[0])
         print(eclipseInfo[1])
         print(eclipseInfo[2])
+    return monthNumber
+
+def showEclipses(month, day, year): # If given date results in an eclipse display it in the bottom left of the GUI.
+    month = monthConversion(month)
+    full_date = str(month) + '/' + str(day) + '/' + str(year)
+    print(full_date)
+    cursor.execute("""SELECT * FROM Eclipses WHERE DATE = ?""", [full_date])
+    eclipseInfo = cursor.fetchone()
+    print(eclipseInfo)
+    if eclipseInfo != None:
+        print(f'Type of Eclipse: {eclipseInfo[0]}')
+        print(f'Date of Eclipse: {eclipseInfo[1]}')
+        print(f'Location of Eclipse: {eclipseInfo[2]}')
     else:
         print('No Eclipse Occuring On This Day.')
 
@@ -86,3 +125,4 @@ def showMoonInfo(buttonName):
     # Orb. posistion - determined by solar_lib library that Ashton has implemented
     # cant think of any more functions to add at the moment, but if I do think of any I will add them here
 >>>>>>> main
+showEclipses('February', 5, 2000)

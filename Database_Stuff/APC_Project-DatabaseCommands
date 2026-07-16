@@ -140,7 +140,7 @@ cursor.execute(sql_command)
 
 #Adding in Eclipse Data to Table
 #Solar eclipses from 2000-2030, data from https://eclipse.gsfc.nasa.gov/
-sql_command = """CREATE TABLE IF NOT EXISTS Eclipses('Solar','2/5/2000', 'Antarctica');"""
+sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '2/5/2000', 'Antarctica');"""
 cursor.execute(sql_command)
 sql_command = """INSERT OR IGNORE INTO Eclipses VALUES('Solar', '7/1/2000', 'South Pacific Ocean, South America');"""
 cursor.execute(sql_command)
