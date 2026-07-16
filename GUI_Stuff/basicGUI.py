@@ -114,7 +114,9 @@ root = tk.Tk()
 root.title('Antikythera')
 root.geometry("1920x1080")
 
-canvas = tk.Canvas(root, width=1920, height=1080, bg='white')
+#creating solar system graphic location
+canvas = tk.Canvas(root, width=650, height=650, bg='white')
+canvas.place(anchor=tk.CENTER)
 canvas.pack()
 
 screen = turtle.TurtleScreen(canvas)
