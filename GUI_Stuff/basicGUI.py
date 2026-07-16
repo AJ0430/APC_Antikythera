@@ -134,11 +134,6 @@ planets.add_command(label="Open Planet selection", command=planet_selection)
 planets.add_separator()
 planets.add_command(label ='Exit', command = root.destroy)
 
-solarSystemMenu = Menu(menubar, tearoff=0)
-menubar.add_command(label="Solar System View", command=solarSystemView)
-solarSystemMenu.add_separator()
-solarSystemMenu.add_command(label='Exit', command = root.destroy)
-
 # Adding File Menu and commands
 cometsAndAsteroids = Menu(menubar, tearoff = 0)
 menubar.add_cascade(label ='Comets and Asteroids', menu = cometsAndAsteroids)
@@ -156,4 +151,5 @@ planet_selection
 
 # display Menu
 root.config(menu = menubar)
+solarSystemView()
 mainloop()
