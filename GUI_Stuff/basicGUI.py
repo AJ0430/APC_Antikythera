@@ -9,7 +9,10 @@ from math import *
 
 #Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
 from tkinter import messagebox
-from PIL import Image, ImageTk
+
+# temporarily commented this out as the image is not currently integrated on the GIT repo
+# from PIL import Image, ImageTk 
+
 import sqlite3
 
 database = sqlite3.connect("Database_Stuff/AntikytheraSystem.db")
@@ -45,11 +48,13 @@ cSelection = False
 global planetAnimation
 planetAnimation = False
 
+# exits the program and prevents an infinite loop. called by exit program button in menu dropdown
 def exitPLEASE():
     global runProgram
     runProgram = False
     root.destroy()
 
+# returns to the date selection window in the main program loop
 def backToDateSelect():
     root.destroy()
     global pSelection
@@ -59,7 +64,74 @@ def backToDateSelect():
     global planetAnimation
     planetAnimation = False
 
-# date selection window
+
+# fixed date selection tab that works on the main window
+def dateSelectionFixed():
+    title = ttk.Label(text = "Select date:", font=("Arial", 20))
+    title.place(x = 1000, y = 0)
+    # List of Months
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    
+    # Makes January the default selection in the dropdown
+    selected_month = tk.StringVar(value=months[0])
+
+    # Create dropdown
+    monthDropdown = tk.OptionMenu(root, selected_month, *months)  # Call changeDay when month changes
+
+    #monthDropdown.config(width=15)  
+    monthDropdown.place(x = 1150, y = 0)
+
+    # List of Years (2000 to 2030)
+    years = [str(year) for year in range(2000, 2031)]
+
+    # Makes 2000 the default selection in the dropdown
+    selected_year = tk.StringVar(value=years[0])
+
+    # Create dropdown
+    yearDropdown = tk.OptionMenu(root, selected_year, *years)  # Call changeDay when year changes
+    yearDropdown.place(x = 1270, y = 0)
+
+    
+    # Makes 1st the default selection in the dropdown
+    days = [str(day) for day in range(1, 32)]
+    selected_day = tk.StringVar(value=days[0])  # Default value
+
+    # Create dropdown
+    dayDropdown = tk.OptionMenu(root, selected_day, *days) 
+    dayDropdown.place(x = 1210, y = 0)
+
+
+    # Button to show current selection
+    def show_selection():
+        # checks if selected date is valid
+        if selected_year.get() in ["2000", "2004", "2008", "2012", "2016", "2020", "2024", "2028"] and selected_month.get() == "February" and (selected_day.get() == "30" or selected_day.get() == "31"):
+            current = ("Invalid date selection: " + selected_month.get() + " does not have " + selected_day.get() + " days in the year " + selected_year.get() + ".")
+            messagebox.showinfo("Current Selection", f"{current}")
+        elif selected_month.get() == "February" and selected_year.get() not in ["2000", "2004", "2008", "2012", "2016", "2020", "2024", "2028"] and (selected_day.get() == "29" or selected_day.get() == "30" or selected_day.get() == "31"):
+            current = ("Invalid date selection: " + selected_month.get() + " does not have " + selected_day.get() + " days in the year " + selected_year.get() + ".")
+            messagebox.showinfo("Current Selection", f"{current}")
+        elif selected_month.get() in ["April", "June", "September", "November"] and (selected_day.get() == "31"):
+            current = ("Invalid date selection: " + selected_month.get() + " does not have 31 days.")
+            messagebox.showinfo("Current Selection", f"{current}")
+        
+        # saves the selected date and exits the date selection window
+        else:
+            current = "Current Selection: " + selected_month.get() + " " + selected_day.get() + ", " + selected_year.get()
+
+
+    show_btn = tk.Button(root, text="Confirm Date", command=show_selection)
+    show_btn.place(x = 1210, y = 30)
+
+    root.mainloop()
+    global dateInfo
+    dateInfo = [selected_month.get(), selected_day.get(), selected_year.get()]
+    print (dateInfo)
+
+
+
+
+
+# date selection window (obsolete. Added to commands tab of main window)
 def dateSelect():
     # Create main application window
     root = tk.Tk()
@@ -70,7 +142,7 @@ def dateSelect():
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
     # Makes January the default selection in the dropdown
-    selected_month = tk.StringVar(value=months[0])  # Default value
+    selected_month = tk.StringVar(value=months[0])
 
     # Create dropdown
     monthDropdown = tk.OptionMenu(root, selected_month, *months)  # Call changeDay when month changes
@@ -82,7 +154,7 @@ def dateSelect():
     years = [str(year) for year in range(2000, 2031)]
 
     # Makes 2000 the default selection in the dropdown
-    selected_year = tk.StringVar(value=years[0])  # Default value
+    selected_year = tk.StringVar(value=years[0])
 
     # Create dropdown
     yearDropdown = tk.OptionMenu(root, selected_year, *years)  # Call changeDay when year changes
@@ -100,6 +172,7 @@ def dateSelect():
 
     # Button to show current selection
     def show_selection():
+        # checks if selected date is valid
         if selected_year.get() in ["2000", "2004", "2008", "2012", "2016", "2020", "2024", "2028"] and selected_month.get() == "February" and (selected_day.get() == "30" or selected_day.get() == "31"):
             current = ("Invalid date selection: " + selected_month.get() + " does not have " + selected_day.get() + " days in the year " + selected_year.get() + ".")
             messagebox.showinfo("Current Selection", f"{current}")
@@ -109,6 +182,8 @@ def dateSelect():
         elif selected_month.get() in ["April", "June", "September", "November"] and (selected_day.get() == "31"):
             current = ("Invalid date selection: " + selected_month.get() + " does not have 31 days.")
             messagebox.showinfo("Current Selection", f"{current}")
+        
+        # saves the selected date and exits the date selection window
         else:
             current = "Current Selection: " + selected_month.get() + " " + selected_day.get() + ", " + selected_year.get()
             root.destroy()  # Close the date selection window after a valid selection
@@ -118,12 +193,11 @@ def dateSelect():
     show_btn.grid(row=1, column=1, columnspan=2, pady=20)
     root.bind("<Return>", lambda event: show_selection())
 
-    # Run the Tkinter event loop
     root.mainloop()
     return [selected_month.get(), selected_day.get(), selected_year.get()]
 
 
-#asteroid and comet selection window
+# asteroid and comet selection window (I moved all the information for this window down to the "com_ast_selection" method to allow it to integrate with main GUI - David)
 small_font = False
 def open_CometsAsteroids_window():
     # select an option from a menu
@@ -223,12 +297,13 @@ def open_CometsAsteroids_window():
 # exits themselves.
     top.mainloop()
 
+# creates a listbox of the planets and places them in the menu
 def planet_selection():
     global pSelection
     if pSelection == False:
         # list of planets for selection
-        title = ttk.Label(text = "Planet Selection", font=("Arial", 20))
-        title.grid(row = 0, column = 0, padx=10, pady=10, sticky="N")
+        title = ttk.Label(text = "Major Bodies", font=("Arial", 20))
+        title.grid(row = 0, column = 0, padx=10, pady=10, sticky="W")
 
         planetSelect = tk.Listbox(height = 10, 
                   width = 20, 
@@ -248,12 +323,13 @@ def planet_selection():
         planetSelect.insert(9, "Pluto")
     pSelection = True
 
+# creates a listbox of the minor bodies and places them in the menu
 def com_ast_selection():
     global cSelection
     if cSelection == False:
         # list of commets and asteroids for selection
         title = ttk.Label(text = "Small Bodies", font=("Arial", 20))
-        title.grid(row = 3, column = 0, padx=10, pady=10, sticky="N")
+        title.grid(row = 3, column = 0, padx=10, pady=10, sticky="W")
 
         cometsAsteroidsSelect = tk.Listbox(height = 10, 
                   width = 20, 
@@ -307,46 +383,47 @@ def solarSystemView():
 
 
 
-runProgram = True
-while runProgram == True:
-    dateInfo = dateSelect()
-    print("Selected Date: ", dateInfo[0], dateInfo[1], dateInfo[2])
-    # creating main window
-    root = tk.Tk()
-    root.title('Antikythera')
-    root.geometry("1920x1080")
 
-    #creating solar system graphic location
-    canvas = tk.Canvas(root, width=650, height=650, bg='white')
-    canvas.place(x=300, y=0)
 
-    screen = turtle.TurtleScreen(canvas)
-    my_turtle = turtle.RawTurtle(screen)
-    my_turtle.penup()
-    my_turtle.setposition(0, 0)
-    my_turtle.hideturtle()
+# creating main window
+root = tk.Tk()
+root.title('Antikythera')
+root.geometry("1920x1080")
 
-    start_drawing = tk.Button(root, text="Draw System", command=solarSystemView)
-    start_drawing.place(x = 575, y = 670)
+# creating solar system graphic location
+canvas = tk.Canvas(root, width=650, height=650, bg='white')
+canvas.place(x=300, y=0)
 
-    selectDate = tk.Button(root, text="Select Date", command=backToDateSelect)
-    selectDate.place(x = 675, y = 670)
+screen = turtle.TurtleScreen(canvas)
+my_turtle = turtle.RawTurtle(screen)
+my_turtle.penup()
+my_turtle.setposition(0, 0)
+my_turtle.hideturtle()
 
-    menubar = Menu(root)
+# places a buttone that starts the drawing of the solar system
+start_drawing = tk.Button(root, text="Draw System", command=solarSystemView)
+start_drawing.place(x = 575, y = 670)
 
-    # Adding File Menu and commands
-    planets = Menu(menubar, tearoff = 0)
-    menubar.add_cascade(label ='Planets', menu = planets)
-    planets.add_command(label="Open Planet selection", command=planet_selection)
+# places a button that sends the user back to the date select window (remove after date gets intedgrated onto main window)
+selectDate = tk.Button(root, text="Select Date", command=backToDateSelect)
+selectDate.place(x = 675, y = 670)
 
-    # Adding File Menu and commands
-    cometsAndAsteroids = Menu(menubar, tearoff = 0)
-    menubar.add_cascade(label ='Comets and Asteroids', menu = cometsAndAsteroids)
-    cometsAndAsteroids.add_command(label="Open Comet and Asteroid selection", command=com_ast_selection)
+menubar = Menu(root)
 
-    # Command Menu
-    command = Menu(menubar, tearoff = 0)
-    menubar.add_cascade(label ='Commands', menu = command)
-    command.add_command(label ='Exit Program', command = exitPLEASE)
-    root.config(menu = menubar)
-    mainloop()
+# Adding File Menu and commands
+planets = Menu(menubar, tearoff = 0)
+menubar.add_cascade(label ='Major and Minor Bodies', menu = planets)
+# Adds a menu dropdown option to place the planet selection menu in the main window
+planets.add_command(label="Open Planet selection", command=planet_selection)
+# Adds a menu dropdown that places the comets and asteroid selection
+planets.add_command(label="Open Comet and Asteroid selection", command=com_ast_selection)
+# Command Menu
+command = Menu(menubar, tearoff = 0)
+menubar.add_cascade(label ='Commands', menu = command)
+command.add_command(label="Open Date Selection", command=dateSelectionFixed)
+command.add_command(label ='Exit Program', command = exitPLEASE)
+root.config(menu = menubar)
+mainloop()
+
+
+print(dateInfo)
