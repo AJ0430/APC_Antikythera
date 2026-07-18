@@ -39,30 +39,12 @@ class Planet(turtle.RawTurtle):
 month = "January"
 day = 1
 year = 2000
-global runProgram
-runProgram = True
 global pSelection
 global cSelection
 pSelection = False
 cSelection = False
 global planetAnimation
 planetAnimation = False
-
-# exits the program and prevents an infinite loop. called by exit program button in menu dropdown
-def exitPLEASE():
-    global runProgram
-    runProgram = False
-    root.destroy()
-
-# returns to the date selection window in the main program loop
-def backToDateSelect():
-    root.destroy()
-    global pSelection
-    global cSelection
-    pSelection = False
-    cSelection = False
-    global planetAnimation
-    planetAnimation = False
 
 
 # fixed date selection tab that works on the main window
@@ -89,7 +71,7 @@ def dateSelectionFixed():
 
     # Create dropdown
     yearDropdown = tk.OptionMenu(root, selected_year, *years)  # Call changeDay when year changes
-    yearDropdown.place(x = 1270, y = 0)
+    yearDropdown.place(x = 1260, y = 0)
 
     
     # Makes 1st the default selection in the dropdown
@@ -98,7 +80,7 @@ def dateSelectionFixed():
 
     # Create dropdown
     dayDropdown = tk.OptionMenu(root, selected_day, *days) 
-    dayDropdown.place(x = 1210, y = 0)
+    dayDropdown.place(x = 1215, y = 0)
 
 
     # Button to show current selection
@@ -297,6 +279,50 @@ def open_CometsAsteroids_window():
 # exits themselves.
     top.mainloop()
 
+
+
+# The begining of the information display for the astronomical bodies (work in progress)
+def bodyInformationDisplay(bodyType, listNum):
+    title = ttk.Label(text = "Major Bodies", font=("Arial", 20))
+    # title.place(x = , y = ) figure out the placements on the menu later
+
+    if bodyType == "Planet":
+        #planet output
+        if listNum == 1:
+            print("mercury")
+        elif listNum == 1:
+            print("venus")
+        elif listNum == 1:
+            print("earth")
+        elif listNum == 1:
+            print("mars")
+        elif listNum == 1:
+            print("jupiter")
+        elif listNum == 1:
+            print("saturn")
+        elif listNum == 1:
+            print("uranus")
+        elif listNum == 1:
+            print("neptune")
+        elif listNum == 1:
+            print("pluto")
+    else:
+        #small body output
+        if listNum == 1:
+            print("McNaught")
+        elif listNum == 1:
+            print("Halleys")
+        elif listNum == 1:
+            print("Apophis")
+        elif listNum == 1:
+            print("Neowise")
+        elif listNum == 1:
+            print("Tsuchinshan-ATLAS")
+        elif listNum == 1:
+            print("Ceres")
+        elif listNum == 1:
+            print("Vesta")
+
 # creates a listbox of the planets and places them in the menu
 def planet_selection():
     global pSelection
@@ -402,11 +428,7 @@ my_turtle.hideturtle()
 
 # places a buttone that starts the drawing of the solar system
 start_drawing = tk.Button(root, text="Draw System", command=solarSystemView)
-start_drawing.place(x = 575, y = 670)
-
-# places a button that sends the user back to the date select window (remove after date gets intedgrated onto main window)
-selectDate = tk.Button(root, text="Select Date", command=backToDateSelect)
-selectDate.place(x = 675, y = 670)
+start_drawing.place(x = 600, y = 670)
 
 menubar = Menu(root)
 
@@ -421,7 +443,7 @@ planets.add_command(label="Open Comet and Asteroid selection", command=com_ast_s
 command = Menu(menubar, tearoff = 0)
 menubar.add_cascade(label ='Commands', menu = command)
 command.add_command(label="Open Date Selection", command=dateSelectionFixed)
-command.add_command(label ='Exit Program', command = exitPLEASE)
+command.add_command(label ='Exit Program', command = root.destroy)
 root.config(menu = menubar)
 mainloop()
 
