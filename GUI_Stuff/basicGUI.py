@@ -7,6 +7,16 @@ import turtle
 from turtle import title
 from math import *
 
+# ******* Getting the functions into this folder ******* #
+import sys
+import os
+
+# Adds the parent directory (APC_Antikythera) to Python's search path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from Classes_and_Objects import APC_Functions as apcfunc
+# ******* end of import ******* #
+
 #Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
 from tkinter import messagebox
 
@@ -279,6 +289,35 @@ def open_CometsAsteroids_window():
 # exits themselves.
     top.mainloop()
 
+# the planet selection window that shows all the information on the planet selected - Joe
+def openPlanetWindow(info):
+
+    # makes sure there is valid information sent into the function before continuing
+    if info is None:
+        messagebox.showerror(
+            "Error",
+            "Planet not found in database."
+        )
+        return
+
+    # creates a window with the title being the name of the planet
+    window = tk.Toplevel(root)
+
+    window.title(info[0])
+
+    window.geometry("500x400")
+
+    # all the information shown in the window (based on how it's stored in the the DB)
+    tk.Label(window, text=info[0], font=("Arial",20,"bold")).pack(pady=10)
+    tk.Label(window, text=f"Radius (in km): {info[1]}").pack()
+    tk.Label(window, text=f"Mass (in kg): {info[2]}").pack()
+    tk.Label(window, text=f"Planet Type: {info[3]}").pack()
+    tk.Label(window, text=f"Gravitational Pull (in m/s^2): {info[4]}").pack()
+    tk.Label(window, text=f"Avg Surface Temperature (in °C): {info[5]}").pack()
+    tk.Label(window, text=f"Distance to Sun (in AU): {info[6]}").pack()
+    #skipping 7th data entry label (orbital position) since Ashton's solar position function handles that
+    tk.Label(window, text=f"Number of Moons: {info[8]}").pack()
+    tk.Label(window, text=f"Orbital Period (in Earth Years): {info[9]}").pack()
 
 
 # The begining of the information display for the astronomical bodies (work in progress)
@@ -348,6 +387,23 @@ def planet_selection():
         planetSelect.insert(8, "Neptune")
         planetSelect.insert(9, "Pluto")
     pSelection = True
+
+    # function inside the planet manu window that when ran will show the appropriate information on the planet selected - Joe
+    def show_selected_planet():
+
+        selection = planetSelect.curselection()
+
+        if selection:
+
+            planetName = planetSelect.get(selection[0])     # gets the selected planet from the user
+
+            planetInfo = apcfunc.showPlanetInfo(planetName) # runs the showPlanetInfo function from APC_Functions
+
+            openPlanetWindow(planetInfo)        # calls the planetInfo windows method to pass in information to it for everything to be displayed
+    
+    # creates a button on the planet selection window which when pressed, will show the appropriate information for the planet selected
+    infoButton = tk.Button(root, text="Planet Information",command=show_selected_planet)
+    infoButton.grid(row=2, column=0, padx=10, pady=5, sticky="W")
 
 # creates a listbox of the minor bodies and places them in the menu
 def com_ast_selection():
