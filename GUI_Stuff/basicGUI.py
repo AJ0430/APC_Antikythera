@@ -229,7 +229,7 @@ def open_CometsAsteroids_window():
         random_font = id(object()) % 100
         if small_font == False:
             if random_font < 1:
-                custom_font = "Wingdings"
+                custom_font = "Comic Sans MS"
             else:
                 custom_font = "Comic Sans MS"
         else:
