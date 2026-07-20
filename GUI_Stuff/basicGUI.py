@@ -189,106 +189,6 @@ def dateSelect():
     return [selected_month.get(), selected_day.get(), selected_year.get()]
 
 
-# asteroid and comet selection window (I moved all the information for this window down to the "com_ast_selection" method to allow it to integrate with main GUI - David)
-small_font = False
-def open_CometsAsteroids_window():
-    # select an option from a menu
-    # create a root window.
-    top = tk.Tk()
-
-
-    # create listbox object
-    cometsAndAsteroidsSelect = Listbox(top, height = 10, 
-                  width = 45, 
-                  bg = "black",
-                  activestyle = 'dotbox', 
-                  font = "ComicSansMS",
-                  fg = "white")
-
-# Define the size of the window.
-    top.geometry("600x600")  
-
-# Define a label for the list.  
-    label = Label(top, text = "Small Bodies in the Solar System") 
-
-# insert elements by their
-# index and names.
-    cometsAndAsteroidsSelect.insert(1, "McNaught")
-    cometsAndAsteroidsSelect.insert(2, "Halleys")
-    cometsAndAsteroidsSelect.insert(3, "Apophis")
-    cometsAndAsteroidsSelect.insert(4, "Neowise")
-    cometsAndAsteroidsSelect.insert(5, "Tsuchinshan-ATLAS")
-    cometsAndAsteroidsSelect.insert(6, "Ceres")
-    cometsAndAsteroidsSelect.insert(7, "Vesta")
-
-# Print out the information related to small bodies im messing with this so it can add a text box that explains the small body within the database
-    def small_bodies_info_window():
-
-        global small_font
-        # Font selector
-        random_font = id(object()) % 100
-        if small_font == False:
-            if random_font < 1:
-                custom_font = "Comic Sans MS"
-            else:
-                custom_font = "Comic Sans MS"
-        else:
-            custom_font = "Comic Sans MS"
-        
-        small_font = True
-
-        # Gets the cursor of what is selected from the list
-        for i in cometsAndAsteroidsSelect.curselection():
-            smallbodyselect = cometsAndAsteroidsSelect.get(i)
-
-        
-        new_window = tk.Toplevel(root)
-        new_window.title(f"{smallbodyselect}")
-        new_window.geometry("720x480")
-        comet_img = Image.open(f"Resources/Small_Bodies/{smallbodyselect}.jpg")
-        resized_image = comet_img.resize((320, 240), Image.LANCZOS)
-        tk_image = ImageTk.PhotoImage(resized_image)
-        image_label = tk.Label(new_window, image=tk_image)
-        image_label.pack(pady=0)
-        image_label.image = tk_image
-        Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=(f"{custom_font}", 15))
-        Title.pack(pady=0)
-
-        cursor.execute(f"SELECT * FROM SmallBodies WHERE NAME = '{smallbodyselect}'")
-        smallbodiesinfo = cursor.fetchone()
-
-        smallbodiestype = smallbodiesinfo[1]  
-        Size_label = tk.Label(new_window, text=f"Type: {smallbodiestype}", font=("Impact", 15))
-        Size_label.pack(pady=0)
-
-
-        smallbodiestype = smallbodiesinfo[2]
-        Size_label = tk.Label(new_window, text=f"Position: {smallbodiestype}", font=("Impact", 15))
-        Size_label.pack(pady=0)
-
-
-        smallbodiestype = smallbodiesinfo[3]
-        Size_label = tk.Label(new_window, text=f"Size: {smallbodiestype}km", font=("Impact", 15))
-        Size_label.pack(pady=0)
-
-
-        smallbodiestype = smallbodiesinfo[4]
-        Size_label = tk.Label(new_window, text=f"Speed: {smallbodiestype}km/s", font=("Impact", 15))
-        Size_label.pack(pady=0)
-
-
-    btn = Button(top, text='Information', command=small_bodies_info_window)
-
-# pack the widgets
-    btn.pack(side='bottom')
-    label.pack()
-    cometsAndAsteroidsSelect.pack()
-
-
-# Display until User 
-# exits themselves.
-    top.mainloop()
-
 # the planet selection window that shows all the information on the planet selected - Joe
 def openPlanetWindow(info):
 
@@ -407,6 +307,7 @@ def planet_selection():
 
 # creates a listbox of the minor bodies and places them in the menu
 def com_ast_selection():
+    
     global cSelection
     if cSelection == False:
         # list of commets and asteroids for selection
@@ -428,6 +329,48 @@ def com_ast_selection():
         cometsAsteroidsSelect.insert(6, "Ceres")
         cometsAsteroidsSelect.insert(7, "Vesta")
     cSelection = True
+    
+    def small_bodies_info_window():
+        # Font selector
+        custom_font = "Comic Sans MS"
+
+        # Gets the cursor of what is selected from the list
+        for i in cometsAsteroidsSelect.curselection():
+            smallbodyselect = cometsAsteroidsSelect.get(i)
+
+        
+        new_window = tk.Toplevel(root)
+        new_window.title(f"{smallbodyselect}")
+        new_window.geometry("720x480")
+        Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=(f"{custom_font}", 15))
+        Title.pack(pady=0)
+
+        cursor.execute(f"SELECT * FROM SmallBodies WHERE NAME = '{smallbodyselect}'")
+        smallbodiesinfo = cursor.fetchone()
+
+        smallbodiestype = smallbodiesinfo[1]  
+        Size_label = tk.Label(new_window, text=f"Type: {smallbodiestype}", font=("Impact", 15))
+        Size_label.pack(pady=0)
+
+
+        smallbodiestype = smallbodiesinfo[2]
+        Size_label = tk.Label(new_window, text=f"Position: {smallbodiestype}", font=("Impact", 15))
+        Size_label.pack(pady=0)
+
+
+        smallbodiestype = smallbodiesinfo[3]
+        Size_label = tk.Label(new_window, text=f"Size: {smallbodiestype}km", font=("Impact", 15))
+        Size_label.pack(pady=0)
+
+
+        smallbodiestype = smallbodiesinfo[4]
+        Size_label = tk.Label(new_window, text=f"Speed: {smallbodiestype}km/s", font=("Impact", 15))
+        Size_label.pack(pady=0)
+
+    btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
+    btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
+
+    
     
 def solarSystemView():
     global planetAnimation
