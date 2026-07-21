@@ -81,7 +81,7 @@ def dateSelectionFixed():
 
     # Create dropdown
     yearDropdown = tk.OptionMenu(root, selected_year, *years)  # Call changeDay when year changes
-    yearDropdown.place(x = 1260, y = 0)
+    yearDropdown.place(x = 1280, y = 0)
 
     
     # Makes 1st the default selection in the dropdown
@@ -90,7 +90,7 @@ def dateSelectionFixed():
 
     # Create dropdown
     dayDropdown = tk.OptionMenu(root, selected_day, *days) 
-    dayDropdown.place(x = 1215, y = 0)
+    dayDropdown.place(x = 1225, y = 0)
 
 
     # Button to show current selection
@@ -120,75 +120,6 @@ def dateSelectionFixed():
     print (dateInfo)
 
 
-
-
-
-# date selection window (obsolete. Added to commands tab of main window)
-def dateSelect():
-    # Create main application window
-    root = tk.Tk()
-    root.title("Date Selection")
-    root.geometry("500x500")
-
-    # List of Months
-    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
-    # Makes January the default selection in the dropdown
-    selected_month = tk.StringVar(value=months[0])
-
-    # Create dropdown
-    monthDropdown = tk.OptionMenu(root, selected_month, *months)  # Call changeDay when month changes
-    #monthDropdown.config(width=15)  
-    monthDropdown.grid(row=0, column=0, padx=10, pady=10, sticky="w")
-
-
-    # List of Years (2000 to 2030)
-    years = [str(year) for year in range(2000, 2031)]
-
-    # Makes 2000 the default selection in the dropdown
-    selected_year = tk.StringVar(value=years[0])
-
-    # Create dropdown
-    yearDropdown = tk.OptionMenu(root, selected_year, *years)  # Call changeDay when year changes
-    yearDropdown.grid(row=0, column=2, padx=10, pady=10, sticky="e")
-
-    
-    # Makes 1st the default selection in the dropdown
-    days = [str(day) for day in range(1, 32)]
-    selected_day = tk.StringVar(value=days[0])  # Default value
-
-    # Create dropdown
-    dayDropdown = tk.OptionMenu(root, selected_day, *days) 
-    dayDropdown.grid(row=0, column=1, padx=10, pady=10, sticky="n")
-
-
-    # Button to show current selection
-    def show_selection():
-        # checks if selected date is valid
-        if selected_year.get() in ["2000", "2004", "2008", "2012", "2016", "2020", "2024", "2028"] and selected_month.get() == "February" and (selected_day.get() == "30" or selected_day.get() == "31"):
-            current = ("Invalid date selection: " + selected_month.get() + " does not have " + selected_day.get() + " days in the year " + selected_year.get() + ".")
-            messagebox.showinfo("Current Selection", f"{current}")
-        elif selected_month.get() == "February" and selected_year.get() not in ["2000", "2004", "2008", "2012", "2016", "2020", "2024", "2028"] and (selected_day.get() == "29" or selected_day.get() == "30" or selected_day.get() == "31"):
-            current = ("Invalid date selection: " + selected_month.get() + " does not have " + selected_day.get() + " days in the year " + selected_year.get() + ".")
-            messagebox.showinfo("Current Selection", f"{current}")
-        elif selected_month.get() in ["April", "June", "September", "November"] and (selected_day.get() == "31"):
-            current = ("Invalid date selection: " + selected_month.get() + " does not have 31 days.")
-            messagebox.showinfo("Current Selection", f"{current}")
-        
-        # saves the selected date and exits the date selection window
-        else:
-            current = "Current Selection: " + selected_month.get() + " " + selected_day.get() + ", " + selected_year.get()
-            root.destroy()  # Close the date selection window after a valid selection
-
-
-    show_btn = tk.Button(root, text="Confirm Date", command=show_selection)
-    show_btn.grid(row=1, column=1, columnspan=2, pady=20)
-    root.bind("<Return>", lambda event: show_selection())
-
-    root.mainloop()
-    return [selected_month.get(), selected_day.get(), selected_year.get()]
-
-
 # the planet selection window that shows all the information on the planet selected - Joe
 def openPlanetWindow(info):
 
@@ -201,66 +132,22 @@ def openPlanetWindow(info):
         return
 
     # creates a window with the title being the name of the planet
-    window = tk.Toplevel(root)
-
-    window.title(info[0])
-
-    window.geometry("500x400")
-
-    # all the information shown in the window (based on how it's stored in the the DB)
-    tk.Label(window, text=info[0], font=("Arial",20,"bold")).pack(pady=10)
-    tk.Label(window, text=f"Radius (in km): {info[1]}").pack()
-    tk.Label(window, text=f"Mass (in kg): {info[2]}").pack()
-    tk.Label(window, text=f"Planet Type: {info[3]}").pack()
-    tk.Label(window, text=f"Gravitational Pull (in m/s^2): {info[4]}").pack()
-    tk.Label(window, text=f"Avg Surface Temperature (in °C): {info[5]}").pack()
-    tk.Label(window, text=f"Distance to Sun (in AU): {info[6]}").pack()
-    #skipping 7th data entry label (orbital position) since Ashton's solar position function handles that
-    tk.Label(window, text=f"Number of Moons: {info[8]}").pack()
-    tk.Label(window, text=f"Orbital Period (in Earth Years): {info[9]}").pack()
-
-
-# The begining of the information display for the astronomical bodies (work in progress)
-def bodyInformationDisplay(bodyType, listNum):
-    title = ttk.Label(text = "Major Bodies", font=("Arial", 20))
-    # title.place(x = , y = ) figure out the placements on the menu later
-
-    if bodyType == "Planet":
-        #planet output
-        if listNum == 1:
-            print("mercury")
-        elif listNum == 1:
-            print("venus")
-        elif listNum == 1:
-            print("earth")
-        elif listNum == 1:
-            print("mars")
-        elif listNum == 1:
-            print("jupiter")
-        elif listNum == 1:
-            print("saturn")
-        elif listNum == 1:
-            print("uranus")
-        elif listNum == 1:
-            print("neptune")
-        elif listNum == 1:
-            print("pluto")
-    else:
-        #small body output
-        if listNum == 1:
-            print("McNaught")
-        elif listNum == 1:
-            print("Halleys")
-        elif listNum == 1:
-            print("Apophis")
-        elif listNum == 1:
-            print("Neowise")
-        elif listNum == 1:
-            print("Tsuchinshan-ATLAS")
-        elif listNum == 1:
-            print("Ceres")
-        elif listNum == 1:
-            print("Vesta")
+    window = tk.Label(text = info[0] + " Information", font=("Arial", 20))
+    window.place(x = 1000, y = 200)
+    informationDisplay = tk.Listbox(height = 8, 
+                  width = 35, 
+                  activestyle = 'dotbox', 
+                  font = "ComicSansMS",
+                  fg = "black")
+    informationDisplay.place(x = 1000, y = 230)
+    informationDisplay.insert(1, f"Radius: {info[1]}km")
+    informationDisplay.insert(2, f"Mass: {info[2]}kg")
+    informationDisplay.insert(3, f"Planet Type: {info[3]}")
+    informationDisplay.insert(4, f"Gravitational Pull: {info[4]}m/s^2")
+    informationDisplay.insert(5, f"Avg Surface Temperature: {info[5]}°C")
+    informationDisplay.insert(6, f"Distance to Sun: {info[6]}AU")
+    informationDisplay.insert(7, f"Number of Moons: {info[8]}")
+    informationDisplay.insert(8, f"Orbital Period: {info[9]} Earth Years")
 
 # creates a listbox of the planets and places them in the menu
 def planet_selection():
@@ -270,7 +157,7 @@ def planet_selection():
         title = ttk.Label(text = "Major Bodies", font=("Arial", 20))
         title.grid(row = 0, column = 0, padx=10, pady=10, sticky="W")
 
-        planetSelect = tk.Listbox(height = 10, 
+        planetSelect = tk.Listbox(height = 9, 
                   width = 20, 
                   activestyle = 'dotbox', 
                   font = "ComicSansMS",
@@ -445,6 +332,3 @@ command.add_command(label="Open Date Selection", command=dateSelectionFixed)
 command.add_command(label ='Exit Program', command = root.destroy)
 root.config(menu = menubar)
 mainloop()
-
-
-print(dateInfo)
