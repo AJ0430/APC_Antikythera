@@ -21,7 +21,7 @@ from Classes_and_Objects import APC_Functions as apcfunc
 from tkinter import messagebox
 
 # temporarily commented this out as the image is not currently integrated on the GIT repo
-# from PIL import Image, ImageTk 
+from PIL import Image, ImageTk 
 
 import sqlite3
 
@@ -229,6 +229,15 @@ def com_ast_selection():
         new_window = tk.Toplevel(root)
         new_window.title(f"{smallbodyselect}")
         new_window.geometry("720x480")
+        try:
+            comet_img = Image.open(f"Resources/Small_bodies/{smallbodyselect}.jpg")
+            resized_image = comet_img.resize((320, 240), Image.LANCZOS)
+            tk_image = ImageTk.PhotoImage(resized_image)
+            image_label = tk.Label(new_window, image=tk_image)
+            image_label.pack(pady=0)
+            image_label.image = tk_image
+        except:
+            print("Error Importing image please try again")
         Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=(f"{custom_font}", 15))
         Title.pack(pady=0)
 
