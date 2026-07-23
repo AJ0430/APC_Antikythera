@@ -7,6 +7,9 @@ import turtle
 from turtle import title
 from math import *
 
+#Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
+from tkinter import messagebox
+
 # ******* Getting the functions into this folder ******* #
 import sys
 import os
@@ -17,11 +20,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Classes_and_Objects import APC_Functions as apcfunc
 # ******* end of import ******* #
 
-#Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
-from tkinter import messagebox
-
 # temporarily commented this out as the image is not currently integrated on the GIT repo
-# from PIL import Image, ImageTk 
+from PIL import Image, ImageTk 
+
 
 import sqlite3
 
@@ -110,8 +111,30 @@ def dateSelectionFixed():
         else:
             current = "Current Selection: " + selected_month.get() + " " + selected_day.get() + ", " + selected_year.get()
 
+    def show_EclipseMenu():
+        eclipseTitle = tk.Label(text= "Eclipse Info", font=("Arial", 20))
+        eclipseTitle.place(x=1000, y=65)
+        eclipseInfo = tk.Listbox(height=3, width=60, activestyle='dotbox', font=('Arial', 10))
+        eclipseInfo.place(x = 1000, y = 100)
 
-    show_btn = tk.Button(root, text="Confirm Date", command=show_selection)
+        month = selected_month.get()
+        day = selected_day.get()
+        year = selected_year.get()
+
+        #print(f"date info: {month}, {day}, {year}")
+
+        eclipse = apcfunc.showEclipses(month, day, year)
+        #print(f"GUI Eclipse Info: {eclipse}")
+
+        if eclipse == None:
+            eclipseInfo.insert(1, "No Eclipse On This Day")
+        else:
+            eclipseInfo.insert(1, f"Type of Eclipse: {eclipse[0]}")
+            eclipseInfo.insert(2, f"Date of Eclipse: {eclipse[1]}")
+            eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
+
+
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), showEclipseMenu()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()
@@ -132,14 +155,14 @@ def openPlanetWindow(info):
         return
 
     # creates a window with the title being the name of the planet
-    window = tk.Label(text = info[0] + " Information", font=("Arial", 20))
+    window = tk.Label(text = info[0] + " Major Body Information", font=("Arial", 20))
     window.place(x = 1000, y = 200)
     informationDisplay = tk.Listbox(height = 8, 
                   width = 35, 
                   activestyle = 'dotbox', 
                   font = "ComicSansMS",
                   fg = "black")
-    informationDisplay.place(x = 1000, y = 230)
+    informationDisplay.place(x = 1000, y = 235)
     informationDisplay.insert(1, f"Radius: {info[1]}km")
     informationDisplay.insert(2, f"Mass: {info[2]}kg")
     informationDisplay.insert(3, f"Planet Type: {info[3]}")
@@ -225,37 +248,51 @@ def com_ast_selection():
         for i in cometsAsteroidsSelect.curselection():
             smallbodyselect = cometsAsteroidsSelect.get(i)
 
-        
-        new_window = tk.Toplevel(root)
-        new_window.title(f"{smallbodyselect}")
-        new_window.geometry("720x480")
-        Title = tk.Label(new_window, text=f"Information on {smallbodyselect}", font=(f"{custom_font}", 15))
-        Title.pack(pady=0)
+        title = ttk.Label(text = smallbodyselect + " Small Body Information", font=("Arial", 20))
+        title.place(x = 1000, y = 445)
+
+        informationDisplay = tk.Listbox(height = 5, 
+                  width = 35, 
+                  activestyle = 'dotbox', 
+                  font = "Impact",
+                  fg = "black")
+        try:
+            new_window = tk.Toplevel(root)
+            new_window.title("Small Body Image")
+            new_window.geometry("720x480")
+            comet_img = Image.open(f"Resources/Small_bodies/{smallbodyselect}.jpg")
+            resized_image = comet_img.resize((320, 240), Image.LANCZOS)
+            tk_image = ImageTk.PhotoImage(resized_image)
+            image_label = tk.Label(new_window, image=tk_image)
+            image_label.pack(pady=0)
+            image_label.image = tk_image
+        except:
+            print("Error Importing image please try again")
 
         cursor.execute(f"SELECT * FROM SmallBodies WHERE NAME = '{smallbodyselect}'")
         smallbodiesinfo = cursor.fetchone()
 
+        informationDisplay.place(x = 1000, y = 480)
+
         smallbodiestype = smallbodiesinfo[1]  
-        Size_label = tk.Label(new_window, text=f"Type: {smallbodiestype}", font=("Impact", 15))
-        Size_label.pack(pady=0)
+        informationDisplay.insert(1, "Type: " + smallbodiestype)
 
 
         smallbodiestype = smallbodiesinfo[2]
-        Size_label = tk.Label(new_window, text=f"Position: {smallbodiestype}", font=("Impact", 15))
-        Size_label.pack(pady=0)
+        informationDisplay.insert(2, "Location: " + smallbodiestype)
 
 
         smallbodiestype = smallbodiesinfo[3]
-        Size_label = tk.Label(new_window, text=f"Size: {smallbodiestype}km", font=("Impact", 15))
-        Size_label.pack(pady=0)
+        informationDisplay.insert(3, "Radius: " + str(smallbodiestype) + " km")
 
 
         smallbodiestype = smallbodiesinfo[4]
-        Size_label = tk.Label(new_window, text=f"Speed: {smallbodiestype}km/s", font=("Impact", 15))
-        Size_label.pack(pady=0)
+        informationDisplay.insert(4, "Speed: " + str(smallbodiestype) + " km/sec")
 
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
+
+
 
     
     
@@ -332,3 +369,7 @@ command.add_command(label="Open Date Selection", command=dateSelectionFixed)
 command.add_command(label ='Exit Program', command = root.destroy)
 root.config(menu = menubar)
 mainloop()
+
+
+# prints final selected date to consol (for testing purposes)
+print (dateInfo[0] + " " + dateInfo[1] + " " + dateInfo[2])
