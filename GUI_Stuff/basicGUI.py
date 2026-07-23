@@ -111,8 +111,30 @@ def dateSelectionFixed():
         else:
             current = "Current Selection: " + selected_month.get() + " " + selected_day.get() + ", " + selected_year.get()
 
+    def show_EclipseMenu():
+        eclipseTitle = tk.Label(text= "Eclipse Info", font=("Arial", 20))
+        eclipseTitle.place(x=1000, y=65)
+        eclipseInfo = tk.Listbox(height=3, width=60, activestyle='dotbox', font=('Arial', 10))
+        eclipseInfo.place(x = 1000, y = 100)
 
-    show_btn = tk.Button(root, text="Confirm Date", command=show_selection)
+        month = selected_month.get()
+        day = selected_day.get()
+        year = selected_year.get()
+
+        #print(f"date info: {month}, {day}, {year}")
+
+        eclipse = apcfunc.showEclipses(month, day, year)
+        #print(f"GUI Eclipse Info: {eclipse}")
+
+        if eclipse == None:
+            eclipseInfo.insert(1, "No Eclipse On This Day")
+        else:
+            eclipseInfo.insert(1, f"Type of Eclipse: {eclipse[0]}")
+            eclipseInfo.insert(2, f"Date of Eclipse: {eclipse[1]}")
+            eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
+
+
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), showEclipseMenu()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()
