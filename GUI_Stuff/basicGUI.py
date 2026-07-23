@@ -274,8 +274,8 @@ def com_ast_selection():
                   fg = "black")
         try:
             new_window = tk.Toplevel(root)
-            new_window.title("Small Body Image")
-            new_window.geometry("720x480")
+            new_window.title(f"{smallbodyselect} image")
+            new_window.geometry("320x240")
             comet_img = Image.open(f"Resources/Small_bodies/{smallbodyselect}.jpg")
             resized_image = comet_img.resize((320, 240), Image.LANCZOS)
             tk_image = ImageTk.PhotoImage(resized_image)
@@ -304,6 +304,12 @@ def com_ast_selection():
 
         smallbodiestype = smallbodiesinfo[4]
         informationDisplay.insert(4, "Speed: " + str(smallbodiestype) + " km/sec")
+
+        if smallbodiesinfo[7] != 0:
+            informationDisplay.insert(5, "Dates visible: " + smallbodiesinfo[5] + " - " + smallbodiesinfo[6] + " " + str(smallbodiesinfo[7]) )
+        else:
+            informationDisplay.insert(5, "Dates visible: " + smallbodiesinfo[5] )
+    
 
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
