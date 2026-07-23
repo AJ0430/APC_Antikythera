@@ -78,6 +78,22 @@ def planet_selection():
     planetSelect.insert(8, "Neptune")
     planetSelect.insert(9, "Pluto")
     
+def planetAndMoonView():
+    motherPlanet.showturtle()
+    motherPlanet.pendown()
+    motherPlanet.shape("circle")
+    motherPlanet.color("purple")
+    
+    radius = 40
+    moonChildOne = Planet("moon", radius, 'light blue')
+    planetAndMoons = [moonChildOne]
+    
+    while True: #placeholder to calculate angle based on date entered
+        canvas.update()
+        for i in planetAndMoons:
+            i.move()
+        moonChildOne.angle += 0.05
+    
 def solarSystemView():
     my_turtle.showturtle()
     my_turtle.pendown()
@@ -117,13 +133,24 @@ root.geometry("1920x1080")
 #creating solar system graphic location
 canvas = tk.Canvas(root, width=650, height=650, bg='white')
 canvas.place(anchor=tk.CENTER)
-canvas.pack()
+canvas.grid(column=0, row=0)
 
 screen = turtle.TurtleScreen(canvas)
 my_turtle = turtle.RawTurtle(screen)
 my_turtle.penup()
-my_turtle.setposition(0, 0)
+my_turtle.setposition(1, 0)
 my_turtle.hideturtle()
+
+#creating moon view
+moonCanvas = tk.Canvas(root, width=300, height=300, bg='white')
+moonCanvas.place(anchor=tk.NE)
+moonCanvas.grid(column=2, row=0)
+
+moonScreen = turtle.TurtleScreen(moonCanvas)
+motherPlanet = turtle.RawTurtle(moonScreen)
+motherPlanet.penup()
+motherPlanet.setposition(0,0)
+motherPlanet.hideturtle()
 
 menubar = Menu(root)
 
@@ -152,4 +179,5 @@ planet_selection
 # display Menu
 root.config(menu = menubar)
 solarSystemView()
+planetAndMoonView()
 mainloop()
