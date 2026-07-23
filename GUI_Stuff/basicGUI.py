@@ -263,6 +263,14 @@ def com_ast_selection():
         Size_label = tk.Label(new_window, text=f"Speed: {smallbodiestype}km/s", font=("Impact", 15))
         Size_label.pack(pady=0)
 
+        
+        if smallbodiesinfo[7] != 0:
+            Size_label = tk.Label(new_window, text=f"Dates visible: {smallbodiesinfo[5]} - {smallbodiesinfo[6]} {smallbodiesinfo[7]}", font=("Impact", 15))
+            Size_label.pack(pady=0)
+        else:
+            Size_label = tk.Label(new_window, text=f"Dates visible: {smallbodiesinfo[5]}", font=("Impact", 15))
+            Size_label.pack(pady=0)
+
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
 
