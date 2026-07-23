@@ -21,7 +21,7 @@ from Classes_and_Objects import APC_Functions as apcfunc
 # ******* end of import ******* #
 
 # temporarily commented this out as the image is not currently integrated on the GIT repo
-from PIL import Image, ImageTk 
+# from PIL import Image, ImageTk 
 
 
 import sqlite3
@@ -134,7 +134,7 @@ def dateSelectionFixed():
             eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
 
 
-    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), showEclipseMenu()))
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()
