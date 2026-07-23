@@ -93,8 +93,8 @@ mooninfo = cursor.fetchone()
 Titania = moons(mooninfo[0], mooninfo[1], mooninfo[2], mooninfo[3], mooninfo[4], mooninfo[5])
 moonsList.append(Titania)
 
-for item in moonsList:
-    print(vars(item))
+#for item in moonsList:
+    #print(vars(item))
 
 # *** Pulling data from the DB, adding each plant as an object, and then adding them to a list of planets called planetList[] ***
 planetsList = []   # creates an empty list called planetList to store the planet objects
@@ -154,5 +154,5 @@ Pluto = planets(PlutoInfo[0], PlutoInfo[1], PlutoInfo[2], PlutoInfo[3], PlutoInf
 planetsList.append(Pluto)
 
 # for testing: prints all the data in the list: planetsList
-for item in planetsList:
-    print(vars(item))
+#for item in planetsList:
+   # print(vars(item))

@@ -46,16 +46,11 @@ def monthConversion(month):
 def showEclipses(month, day, year): # If given date results in an eclipse display it in the bottom left of the GUI.
     month = monthConversion(month)
     full_date = str(month) + '/' + str(day) + '/' + str(year)
-    print(full_date)
+    print(f"From showEclipses/fulldate: {full_date}")
     cursor.execute("""SELECT * FROM Eclipses WHERE DATE = ?""", [full_date])
     eclipseInfo = cursor.fetchone()
-    print(eclipseInfo)
-    if eclipseInfo != None:
-        print(f'Type of Eclipse: {eclipseInfo[0]}')
-        print(f'Date of Eclipse: {eclipseInfo[1]}')
-        print(f'Location of Eclipse: {eclipseInfo[2]}')
-    else:
-        print('No Eclipse Occuring On This Day.')
+    print(f"From showEclipses: {eclipseInfo}")
+    return eclipseInfo
 
 def showPlanetInfo(planetName):
     # goes into the DB, and looks for the entry in the table for the appropriate planet name
@@ -92,4 +87,4 @@ def showMoonInfo(buttonName):
     # functions remaining:
     # Orb. posistion - determined by solar_lib library that Ashton has implemented
     # cant think of any more functions to add at the moment, but if I do think of any I will add them here
-showEclipses('February', 5, 2000)
+#showEclipses('February', 5, 2000)
