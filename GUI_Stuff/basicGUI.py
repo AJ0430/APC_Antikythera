@@ -59,7 +59,7 @@ class Moon(turtle.RawTurtle):
         x = self.radius*cos(self.angle) #Angle in radians
         y = self.radius*sin(self.angle)
         
-        self.goto(moonCanvas.xcor()+x, moonCanvas.ycor()+y)
+        self.goto(motherPlanet.xcor()+x, motherPlanet.ycor()+y)
 
 
 month = "January"
@@ -276,6 +276,7 @@ def com_ast_selection():
 def solarSystemView():
     global planetAnimation
     if planetAnimation == False:
+        sunScreen.resetscreen()
         sunObject.showturtle()
         sunObject.pendown()
         sunObject.shape("circle")
@@ -307,8 +308,8 @@ def solarSystemView():
             pluto.angle += 0.003
     planetAnimation = True
 
-
 def planetAndMoonView():
+    moonScreen.resetscreen()
     motherPlanet.showturtle()
     motherPlanet.pendown()
     motherPlanet.shape("circle")
