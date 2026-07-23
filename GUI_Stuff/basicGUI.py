@@ -31,7 +31,7 @@ cursor = database.cursor()
 
 class Planet(turtle.RawTurtle):
     def __init__(self, name, radius, color):
-        super().__init__(screen, shape='circle')
+        super().__init__(sunScreen, shape='circle')
         self.name = name
         self.radius = radius
         self.c = color
@@ -39,11 +39,27 @@ class Planet(turtle.RawTurtle):
         self.up()
         self.pd()
         self.angle = 0
-    def move(self):
+    def move_solarSystem(self):
         x = self.radius*cos(self.angle) #Angle in radians
         y = self.radius*sin(self.angle)
         
-        self.goto(my_turtle.xcor()+x, my_turtle.ycor()+y)
+        self.goto(sunObject.xcor()+x, sunObject.ycor()+y)
+        
+class Moon(turtle.RawTurtle):
+    def __init__(self, name, radius, color):
+            super().__init__(moonScreen, shape='circle')
+            self.name = name
+            self.radius = radius
+            self.c = color
+            self.color(self.c)
+            self.up()
+            self.pd()
+            self.angle = 0
+    def move_moonPlanet(self):
+        x = self.radius*cos(self.angle) #Angle in radians
+        y = self.radius*sin(self.angle)
+        
+        self.goto(moonCanvas.xcor()+x, moonCanvas.ycor()+y)
 
 
 month = "January"
@@ -256,16 +272,14 @@ def com_ast_selection():
 
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
-
-    
     
 def solarSystemView():
     global planetAnimation
     if planetAnimation == False:
-        my_turtle.showturtle()
-        my_turtle.pendown()
-        my_turtle.shape("circle")
-        my_turtle.color("yellow")
+        sunObject.showturtle()
+        sunObject.pendown()
+        sunObject.shape("circle")
+        sunObject.color("yellow")
         
         mercury = Planet("Mercury", 40, 'grey')
         venus = Planet("Venus",80, 'orange')
@@ -281,7 +295,7 @@ def solarSystemView():
         while True: #placeholder to calculate angle based on date entered
             canvas.update()
             for i in solarSystem:
-                i.move()
+                i.move_solarSystem()
             mercury.angle += 0.05
             venus.angle += 0.03
             earth.angle += 0.01
@@ -294,8 +308,21 @@ def solarSystemView():
     planetAnimation = True
 
 
-
-
+def planetAndMoonView():
+    motherPlanet.showturtle()
+    motherPlanet.pendown()
+    motherPlanet.shape("circle")
+    motherPlanet.color("purple")
+    
+    radius = 40
+    moonChildOne = Moon("moon", radius, 'light blue')
+    planetAndMoons = [moonChildOne]
+    
+    while True: #Placeholder to calculate angle based on date entered
+        moonCanvas.update()
+        for i in planetAndMoons:
+            i.move_moonPlanet()
+        moonChildOne.angle += 0.05
 
 # creating main window
 root = tk.Tk()
@@ -306,11 +333,25 @@ root.geometry("1920x1080")
 canvas = tk.Canvas(root, width=650, height=650, bg='white')
 canvas.place(x=300, y=0)
 
-screen = turtle.TurtleScreen(canvas)
-my_turtle = turtle.RawTurtle(screen)
-my_turtle.penup()
-my_turtle.setposition(0, 0)
-my_turtle.hideturtle()
+sunScreen = turtle.TurtleScreen(canvas)
+sunObject = turtle.RawTurtle(sunScreen)
+sunObject.penup()
+sunObject.setposition(0, 0)
+sunObject.hideturtle()
+
+#creating planet and moon view
+moonCanvas = tk.Canvas(root, width=350, height=300, bg='white')
+moonCanvas.place(x=1000, y=150)
+
+moonScreen = turtle.TurtleScreen(moonCanvas)
+motherPlanet = turtle.RawTurtle(moonScreen)
+motherPlanet.penup()
+motherPlanet.setposition(0,0)
+motherPlanet.hideturtle()
+
+#places button to start drawing moon and planet
+start_moonPlanet_drawing = tk.Button(root, text="Draw Planet and Moon(s)", command = planetAndMoonView)
+start_moonPlanet_drawing.place(x=1120, y=470)
 
 # places a buttone that starts the drawing of the solar system
 start_drawing = tk.Button(root, text="Draw System", command=solarSystemView)
