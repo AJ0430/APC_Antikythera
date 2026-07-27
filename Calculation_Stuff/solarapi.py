@@ -20,8 +20,8 @@ class Request():
         self.target = target
 
 def handle_request(req):
-    request_type = req.request.lower()
     try:
+        request_type = req.request.strip().lower()
         if request_type == "moonphase":
             req.payload = sf.moonphase(
                 req.year,
@@ -49,10 +49,10 @@ def handle_request(req):
                 req.minute
             )
             if req.target is not None:
-                target = req.target.capitalize()
+                target = req.target.strip().capitalize()
 
                 if target in planets:
-                    req.payload = sf.strip_z(planets[target])
+                    req.payload = sf.rect2polar(sf.strip_z(planets[target]))
                 else:
                     req.response = 404
                     req.error = "Planet not found"
@@ -60,7 +60,7 @@ def handle_request(req):
             else:
                 req.payload = {}
                 for name, coord in planets.items():
-                    req.payload[name] = sf.strip_z(coord)
+                    req.payload[name] = sf.rect2polar(sf.strip_z(coord))
 
         elif request_type == "sunriseset":
             req.payload = sf.sunriseSet(
@@ -83,23 +83,23 @@ def handle_request(req):
                 if target in JMOON_NAMES:
                     moon_attr = JMOON_NAMES[target]
                     moon_state = getattr(moons, moon_attr)
-                    req.payload = sf.sv_to_coord(moon_state)
+                    req.payload = sf.rect2polar(sf.sv_to_coord(moon_state))
                 else:
                     req.response = 404
                     req.error = "Jupiter moon not found"
                     return req
             else:
                 req.payload = {
-                    "Io": sf.sv_to_coord(moons.io),
-                    "Europa": sf.sv_to_coord(moons.europa),
-                    "Ganymede": sf.sv_to_coord(moons.ganymede),
-                    "Callisto": sf.sv_to_coord(moons.callisto)
+                    "Io": sf.rect2polar(sf.sv_to_coord(moons.io)),
+                    "Europa": sf.rect2polar(sf.sv_to_coord(moons.europa)),
+                    "Ganymede": sf.rect2polar(sf.sv_to_coord(moons.ganymede)),
+                    "Callisto": sf.rect2polar(sf.sv_to_coord(moons.callisto))
                 }
 
         elif request_type == "equinox":
             sols = sf.Equinox(req.year)
             if req.target is not None:
-                match req.target.lower():
+                match req.target.strip().lower():
                     case "march":
                         req.payload = sols.mar_equinox
                     case "june":

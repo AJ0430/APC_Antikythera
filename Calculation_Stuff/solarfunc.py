@@ -2,11 +2,13 @@ import solarsystem as ss
 import datetime
 from zoneinfo import ZoneInfo
 import astronomy
+import math
 
 tz = ZoneInfo("America/New_York")
 now    = datetime.datetime.now(datetime.UTC)
 
-
+def rect2polar(coords):
+    return math.degrees(math.atan2(coords[1],coords[0]))
 
 def daylightSavings(year, month, day, hour=12, minute=00):
     dst = datetime.datetime(year, month, day, hour, minute, tzinfo=tz)
@@ -21,8 +23,10 @@ def sv_to_coord(state):
     return state.x, state.y
     
 def moonphase(year,month,day,hour=12,minute=00):
+    current_date = datetime.datetime(year, month, day, hour, minute)
+    previous_date = current_date - datetime.timedelta(days=1)
     mooninfo = ss.Moon(year, month, day, hour, minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
-    moonchange = ss.Moon(year, month, day-1, hour, minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
+    moonchange = ss.Moon(previous_date.year, previous_date.month, previous_date.day, previous_date.hour, previous_date.minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
     phase = ""
     if(mooninfo.phase() > moonchange.phase()):
         phase = "Waxing"
@@ -46,14 +50,14 @@ def moonphase(year,month,day,hour=12,minute=00):
 def moon(year, month, day, hour=12, minute=00):
     mooninfo = ss.Moon(year, month, day, hour, minute, -5, daylightSavings(year,month,day,hour,minute), -71.0571, 42.3611, True)
     moonpos = mooninfo.position()
-    moonpos = ss.spherical2rectangular(moonpos[0],moonpos[1],moonpos[2])
-    return strip_z(moonpos)
-    #returns the position of the moon in rectangular coordinates
+    moonpos = strip_z(moonpos)
+    return math.degrees(moonpos[1])
+    #returns the position of the moon in polar coordinates
 
 def planets(year,month,day,hour=12, minute=00):
     Helio = ss.Heliocentric(year, month, day, hour, minute, 0, 0, 'rectangular', True)
     return Helio.planets()
-    #Returns a dictionary of planets and their rectangular coordinates (X,Y,Z)
+    #Returns a dictionary of planets and their polar coordinates (X,Y,Z)
 
 def sunriseSet(year, month, day):
     sun = ss.Sunriseset(year, month, day, -5, daylightSavings(year,month,day,12,0), -71.0571, 42.3611)
