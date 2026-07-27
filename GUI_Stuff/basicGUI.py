@@ -349,7 +349,22 @@ def solarSystemView():
             pluto.angle += 0.003
     planetAnimation = True
 
-def planetAndMoonView():
+def createPlanetAndMoonPopUp():
+    #creating popup
+    popup = tk.Toplevel(root)
+    popup.title("Planet and Moon")
+    popup.config(width=350, height=300, bg='white')
+    
+    #creating planet and moon view
+    moonCanvas = tk.Canvas(popup, width=350, height=300, bg='white')
+    moonCanvas.place(0,0)
+
+    moonScreen = turtle.TurtleScreen(moonCanvas)
+    motherPlanet = turtle.RawTurtle(moonScreen)
+    motherPlanet.penup()
+    motherPlanet.setposition(0,0)
+    motherPlanet.hideturtle()
+    
     moonScreen.resetscreen()
     motherPlanet.showturtle()
     motherPlanet.pendown()
@@ -381,18 +396,8 @@ sunObject.penup()
 sunObject.setposition(0, 0)
 sunObject.hideturtle()
 
-#creating planet and moon view
-moonCanvas = tk.Canvas(root, width=350, height=300, bg='white')
-moonCanvas.place(x=1000, y=150)
-
-moonScreen = turtle.TurtleScreen(moonCanvas)
-motherPlanet = turtle.RawTurtle(moonScreen)
-motherPlanet.penup()
-motherPlanet.setposition(0,0)
-motherPlanet.hideturtle()
-
 #places button to start drawing moon and planet
-start_moonPlanet_drawing = tk.Button(root, text="Draw Planet and Moon(s)", command = planetAndMoonView)
+start_moonPlanet_drawing = tk.Button(root, text="Draw Planet and Moon(s)", command = createPlanetAndMoonPopUp)
 start_moonPlanet_drawing.place(x=1120, y=470)
 
 # places a buttone that starts the drawing of the solar system
