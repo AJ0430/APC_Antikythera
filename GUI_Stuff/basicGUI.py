@@ -45,23 +45,6 @@ class Planet(turtle.RawTurtle):
         y = self.radius*sin(self.angle)
         
         self.goto(sunObject.xcor()+x, sunObject.ycor()+y)
-        
-class Moon(turtle.RawTurtle):
-    def __init__(self, name, radius, color):
-            super().__init__(moonScreen, shape='circle')
-            self.name = name
-            self.radius = radius
-            self.c = color
-            self.color(self.c)
-            self.up()
-            self.pd()
-            self.angle = 0
-    def move_moonPlanet(self):
-        x = self.radius*cos(self.angle) #Angle in radians
-        y = self.radius*sin(self.angle)
-        
-        self.goto(motherPlanet.xcor()+x, motherPlanet.ycor()+y)
-
 
 month = "January"
 day = 1
@@ -150,7 +133,7 @@ def dateSelectionFixed():
             eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
 
 
-    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), showEclipseMenu()))
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()
@@ -313,6 +296,12 @@ def com_ast_selection():
 
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
+
+def showAstrologicalSign():
+    constellationSelect = dateInfo[month, day]
+    cursor.execute(f"SELECT * FROM Zodiac_Constellations WHERE DATE_START >= {constellationSelect} and DATE_END < {constellationSelect}")
+    popup = tk.Toplevel(root)
+    title = tk.Label("Astrological signs")
     
 def solarSystemView():
     global planetAnimation
@@ -349,37 +338,6 @@ def solarSystemView():
             pluto.angle += 0.003
     planetAnimation = True
 
-def createPlanetAndMoonPopUp():
-    #creating popup
-    popup = tk.Toplevel(root)
-    popup.title("Planet and Moon")
-    popup.config(width=350, height=300, bg='white')
-    
-    #creating planet and moon view
-    moonCanvas = tk.Canvas(popup, width=350, height=300, bg='white')
-    moonCanvas.place(0,0)
-
-    moonScreen = turtle.TurtleScreen(moonCanvas)
-    motherPlanet = turtle.RawTurtle(moonScreen)
-    motherPlanet.penup()
-    motherPlanet.setposition(0,0)
-    motherPlanet.hideturtle()
-    
-    moonScreen.resetscreen()
-    motherPlanet.showturtle()
-    motherPlanet.pendown()
-    motherPlanet.shape("circle")
-    motherPlanet.color("purple")
-    
-    radius = 40
-    moonChildOne = Moon("moon", radius, 'light blue')
-    planetAndMoons = [moonChildOne]
-    
-    while True: #Placeholder to calculate angle based on date entered
-        moonCanvas.update()
-        for i in planetAndMoons:
-            i.move_moonPlanet()
-        moonChildOne.angle += 0.05
 
 # creating main window
 root = tk.Tk()
@@ -395,10 +353,6 @@ sunObject = turtle.RawTurtle(sunScreen)
 sunObject.penup()
 sunObject.setposition(0, 0)
 sunObject.hideturtle()
-
-#places button to start drawing moon and planet
-start_moonPlanet_drawing = tk.Button(root, text="Draw Planet and Moon(s)", command = createPlanetAndMoonPopUp)
-start_moonPlanet_drawing.place(x=1120, y=470)
 
 # places a buttone that starts the drawing of the solar system
 start_drawing = tk.Button(root, text="Draw System", command=solarSystemView)
