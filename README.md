@@ -60,7 +60,7 @@ Please see the instructions on how to get the program to run properly below:
 2. Clone the repository to VS Code (or VS?)
 3. Install necessary libraries using: python -m pip install -r requirements.txt
 4. Install Python extension in VS Code (if not already installed)
-6. Run "APC Progect.py" to start the program
+6. Run "APC Project.py" to start the program
 
 
 ## Section II: Running the Program
