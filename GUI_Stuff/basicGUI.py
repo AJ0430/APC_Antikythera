@@ -132,7 +132,7 @@ def dateSelectionFixed():
             eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
 
 
-    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu()))
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), solarSystemView()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()
@@ -326,7 +326,7 @@ def solarSystemView():
                 i.move_solarSystem()
                 i.pendown()
         
-        while True: #placeholder to calculate angle based on date entered
+        while (True): #placeholder to calculate angle based on date entered
             canvas.update()
             planet_angles_request = api.Request("planets", year, apcfunc.monthConversion(month), day, hour=minute)
             planet_angles = api.handle_request(planet_angles_request)
