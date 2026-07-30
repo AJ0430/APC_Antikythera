@@ -418,7 +418,3 @@ command.add_command(label="Open Date Selection", command=dateSelectionFixed)
 command.add_command(label ='Exit Program', command = root.destroy)
 root.config(menu = menubar)
 mainloop()
-
-
-# prints final selected date to consol (for testing purposes)
-print(dateInfo[0] + " " + dateInfo[1] + " " + dateInfo[2])
