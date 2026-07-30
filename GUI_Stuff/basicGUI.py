@@ -7,6 +7,8 @@ import turtle
 from turtle import title
 from math import *
 from Calculation_Stuff import solarapi as api
+from datetime import datetime, timedelta
+
 
 #Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
 from tkinter import messagebox
@@ -45,8 +47,11 @@ class Planet(turtle.RawTurtle):
         
         self.goto(sunObject.xcor()+x, sunObject.ycor()+y)
 
+global month
 month = "January"
+global day
 day = 1
+global year
 year = 2000
 global pSelection
 global cSelection
@@ -114,6 +119,9 @@ def dateSelectionFixed():
         eclipseTitle.place(x=1000, y=65)
         eclipseInfo = tk.Listbox(height=3, width=60, activestyle='dotbox', font=('Arial', 10))
         eclipseInfo.place(x = 1000, y = 100)
+        global year
+        global month
+        global day
 
         month = selected_month.get()
         day = selected_day.get()
@@ -166,7 +174,6 @@ def dateSelectionFixed():
     root.mainloop()
     global dateInfo
     dateInfo = [selected_month.get(), selected_day.get(), selected_year.get()]
-    print (dateInfo)
 
 
 # the planet selection window that shows all the information on the planet selected - Joe
@@ -273,8 +280,8 @@ def com_ast_selection():
         # Gets the cursor of what is selected from the list
         for i in cometsAsteroidsSelect.curselection():
             smallbodyselect = cometsAsteroidsSelect.get(i)
-
-        title = ttk.Label(text = smallbodyselect + " Small Body Information", font=("Arial", 20))
+        
+        title = ttk.Label(text = smallbodyselect + " Small Body Information                                                   ", font=("Arial", 20))
         title.place(x = 1000, y = 445)
 
         informationDisplay = tk.Listbox(height = 5, 
@@ -324,19 +331,26 @@ def com_ast_selection():
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
 
+
+
+def increment_datetime(start_date, inc):
+    return start_date + timedelta(hours=inc)
+
+
 def solarSystemView():
     global planetAnimation
+    hour = 0
+    inc = 0
+    start_date = datetime(int(year), apcfunc.monthConversion(month), int(day), int(hour), 0)
     if planetAnimation == False:
         sunScreen.resetscreen()
         sunObject.showturtle()
         sunObject.penup()
         sunObject.shape("circle")
         sunObject.color("yellow")
-        req = api.Request("planets", year, apcfunc.monthConversion(month), day)
+        req = api.Request("planets", start_date.year,start_date.month, start_date.day, start_date.hour)
         response = api.handle_request(req)
         radius = response.payload
-        print(radius)
-        print(response.error)
         mercury = Planet("Mercury", radius["Mercury"], 'grey')
         venus = Planet("Venus", radius["Venus"], 'orange')
         earth=Planet("Earth",radius["Earth"],'blue')
@@ -347,18 +361,18 @@ def solarSystemView():
         neptune=Planet("Neptune",radius["Neptune"], 'black')
         pluto=Planet("Pluto",radius["Pluto"], 'green')
         solarSystem = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto]
-        minute = 0
         
         for i in solarSystem:
                 i.penup()
                 i.move_solarSystem()
                 i.pendown()
         
-        while (True): #placeholder to calculate angle based on date entered
+        while True: #placeholder to calculate angle based on date entered
             canvas.update()
-            planet_angles_request = api.Request("planets", year, apcfunc.monthConversion(month), day, hour=minute)
+            current_time = increment_datetime(start_date, inc)
+            print(f"{current_time.year},{current_time.month}, {current_time.day}, {current_time.hour}")
+            planet_angles_request = api.Request("planets", current_time.year,current_time.month, current_time.day, current_time.hour)
             planet_angles = api.handle_request(planet_angles_request)
-
             for i in solarSystem:
                 i.move_solarSystem()
             mercury.angle = planet_angles.payload["Mercury"][0]
@@ -379,7 +393,7 @@ def solarSystemView():
             neptune.radius = planet_angles.payload["Neptune"][1]
             pluto.angle = planet_angles.payload["Pluto"][0]
             pluto.radius = planet_angles.payload["Pluto"][1]
-            minute +=1
+            inc +=1
     planetAnimation = True
 
 

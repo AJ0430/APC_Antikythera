@@ -1,2 +1,4 @@
 solarsystem
 astronomy-engine
+tzdata
+pillow
