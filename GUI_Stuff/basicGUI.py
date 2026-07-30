@@ -273,8 +273,8 @@ def com_ast_selection():
         # Gets the cursor of what is selected from the list
         for i in cometsAsteroidsSelect.curselection():
             smallbodyselect = cometsAsteroidsSelect.get(i)
-
-        title = ttk.Label(text = smallbodyselect + " Small Body Information", font=("Arial", 20))
+        
+        title = ttk.Label(text = smallbodyselect + " Small Body Information                                                   ", font=("Arial", 20))
         title.place(x = 1000, y = 445)
 
         informationDisplay = tk.Listbox(height = 5, 
