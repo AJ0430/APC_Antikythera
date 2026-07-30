@@ -1,4 +1,4 @@
-import solarfunc as sf
+from Calculation_Stuff import solarfunc as sf
 
 JMOON_NAMES = {
     "io": "io",
@@ -8,7 +8,7 @@ JMOON_NAMES = {
 }
 
 class Request():
-    def __init__(self, REQ, year, month=1, day=1, hour=12, minute=0, target=None):
+    def __init__(self, REQ, year, month=1, day=1, hour=0, minute=0, target=None):
         self.request = REQ
         self.year = year
         self.month = month
@@ -20,8 +20,8 @@ class Request():
         self.target = target
 
 def handle_request(req):
-    request_type = req.request.lower()
     try:
+        request_type = req.request.strip().lower()
         if request_type == "moonphase":
             req.payload = sf.moonphase(
                 req.year,
@@ -48,19 +48,33 @@ def handle_request(req):
                 req.hour,
                 req.minute
             )
+            del planets["Ceres"]
+            del planets["Chiron"]
+            del planets["Eris"]
             if req.target is not None:
-                target = req.target.capitalize()
+                target = req.target.strip().capitalize()
 
                 if target in planets:
-                    req.payload = sf.strip_z(planets[target])
+                    req.payload = sf.rect2polar(sf.strip_z(planets[target]))
                 else:
                     req.response = 404
                     req.error = "Planet not found"
                     return req
             else:
                 req.payload = {}
+                minimum = 9999
+                maximum = 0
+                for name, coord in planets.items(): 
+                    if sf.rect2polar(sf.strip_z(coord))[1] > maximum:
+                        maximum = sf.rect2polar(sf.strip_z(coord))[1]
+                    if sf.rect2polar(sf.strip_z(coord))[1] < minimum:
+                        minimum = sf.rect2polar(sf.strip_z(coord))[1]
+                
                 for name, coord in planets.items():
-                    req.payload[name] = sf.strip_z(coord)
+                    req.payload[name] = sf.rect2polar(sf.strip_z(coord))
+                    normalized = (req.payload[name][1] - minimum) / (maximum - minimum)
+                    scaled = 25 + normalized*(300-25)
+                    req.payload[name][1] = scaled
 
         elif request_type == "sunriseset":
             req.payload = sf.sunriseSet(
@@ -83,23 +97,23 @@ def handle_request(req):
                 if target in JMOON_NAMES:
                     moon_attr = JMOON_NAMES[target]
                     moon_state = getattr(moons, moon_attr)
-                    req.payload = sf.sv_to_coord(moon_state)
+                    req.payload = sf.rect2polar(sf.sv_to_coord(moon_state))
                 else:
                     req.response = 404
                     req.error = "Jupiter moon not found"
                     return req
             else:
                 req.payload = {
-                    "Io": sf.sv_to_coord(moons.io),
-                    "Europa": sf.sv_to_coord(moons.europa),
-                    "Ganymede": sf.sv_to_coord(moons.ganymede),
-                    "Callisto": sf.sv_to_coord(moons.callisto)
+                    "Io": sf.rect2polar(sf.sv_to_coord(moons.io)),
+                    "Europa": sf.rect2polar(sf.sv_to_coord(moons.europa)),
+                    "Ganymede": sf.rect2polar(sf.sv_to_coord(moons.ganymede)),
+                    "Callisto": sf.rect2polar(sf.sv_to_coord(moons.callisto))
                 }
 
         elif request_type == "equinox":
             sols = sf.Equinox(req.year)
             if req.target is not None:
-                match req.target.lower():
+                match req.target.strip().lower():
                     case "march":
                         req.payload = sols.mar_equinox
                     case "june":

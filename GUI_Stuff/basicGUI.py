@@ -6,6 +6,7 @@ from tkinter import ttk
 import turtle
 from turtle import title
 from math import *
+from Calculation_Stuff import solarapi as api
 
 #Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
 from tkinter import messagebox
@@ -14,8 +15,6 @@ from tkinter import messagebox
 import sys
 import os
 
-# Adds the parent directory (APC_Antikythera) to Python's search path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from Classes_and_Objects import APC_Functions as apcfunc
 # ******* end of import ******* #
@@ -31,15 +30,15 @@ cursor = database.cursor()
 
 
 class Planet(turtle.RawTurtle):
-    def __init__(self, name, radius, color):
+    def __init__(self, name, pos, color):
         super().__init__(sunScreen, shape='circle')
         self.name = name
-        self.radius = radius
+        self.radius = pos[1]
         self.c = color
         self.color(self.c)
         self.up()
         self.pd()
-        self.angle = 0
+        self.angle = pos[0]
     def move_solarSystem(self):
         x = self.radius*cos(self.angle) #Angle in radians
         y = self.radius*sin(self.angle)
@@ -308,34 +307,57 @@ def solarSystemView():
     if planetAnimation == False:
         sunScreen.resetscreen()
         sunObject.showturtle()
-        sunObject.pendown()
+        sunObject.penup()
         sunObject.shape("circle")
         sunObject.color("yellow")
-        
-        mercury = Planet("Mercury", 40, 'grey')
-        venus = Planet("Venus",80, 'orange')
-        earth=Planet("Earth",100,'blue')
-        mars = Planet("Mars",150, 'red')
-        jupiter=Planet("Jupiter",180, 'brown')
-        saturn=Planet("Saturn",230, 'pink')
-        uranus=Planet("Uranus",250, 'light blue')
-        neptune=Planet("Neptune",280, 'black')
-        pluto=Planet("Pluto",300, 'green')
+        req = api.Request("planets", year, apcfunc.monthConversion(month), day)
+        response = api.handle_request(req)
+        radius = response.payload
+        print(radius)
+        print(response.error)
+        mercury = Planet("Mercury", radius["Mercury"], 'grey')
+        venus = Planet("Venus", radius["Venus"], 'orange')
+        earth=Planet("Earth",radius["Earth"],'blue')
+        mars = Planet("Mars",radius["Mars"], 'red')
+        jupiter=Planet("Jupiter",radius["Jupiter"], 'brown')
+        saturn=Planet("Saturn",radius["Saturn"], 'pink')
+        uranus=Planet("Uranus",radius["Uranus"], 'light blue')
+        neptune=Planet("Neptune",radius["Neptune"], 'black')
+        pluto=Planet("Pluto",radius["Pluto"], 'green')
         solarSystem = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto]
-    
+        minute = 0
+        
+        for i in solarSystem:
+                i.penup()
+                i.move_solarSystem()
+                i.pendown()
+        
         while True: #placeholder to calculate angle based on date entered
             canvas.update()
+            planet_angles_request = api.Request("planets", year, apcfunc.monthConversion(month), day, hour=minute)
+            planet_angles = api.handle_request(planet_angles_request)
+
             for i in solarSystem:
                 i.move_solarSystem()
-            mercury.angle += 0.05
-            venus.angle += 0.03
-            earth.angle += 0.01
-            mars.angle += 0.007
-            jupiter.angle += 0.02
-            saturn.angle += 0.018
-            uranus.angle += 0.016
-            neptune.angle += 0.005
-            pluto.angle += 0.003
+            mercury.angle = planet_angles.payload["Mercury"][0]
+            mercury.radius = planet_angles.payload["Mercury"][1]
+            venus.angle = planet_angles.payload["Venus"][0]
+            venus.radius = planet_angles.payload["Venus"][1]
+            earth.angle = planet_angles.payload["Earth"][0]
+            earth.radius = planet_angles.payload["Earth"][1]
+            mars.angle = planet_angles.payload["Mars"][0]
+            mars.radius = planet_angles.payload["Mars"][1]
+            jupiter.angle = planet_angles.payload["Jupiter"][0]
+            jupiter.radius = planet_angles.payload["Jupiter"][1]
+            saturn.angle = planet_angles.payload["Saturn"][0]
+            saturn.radius = planet_angles.payload["Saturn"][1]
+            uranus.angle = planet_angles.payload["Uranus"][0]
+            uranus.radius = planet_angles.payload["Uranus"][1]
+            neptune.angle = planet_angles.payload["Neptune"][0]
+            neptune.radius = planet_angles.payload["Neptune"][1]
+            pluto.angle = planet_angles.payload["Pluto"][0]
+            pluto.radius = planet_angles.payload["Pluto"][1]
+            minute +=1
     planetAnimation = True
 
 
@@ -377,4 +399,4 @@ mainloop()
 
 
 # prints final selected date to consol (for testing purposes)
-print (dateInfo[0] + " " + dateInfo[1] + " " + dateInfo[2])
+print(dateInfo[0] + " " + dateInfo[1] + " " + dateInfo[2])
