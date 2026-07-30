@@ -131,8 +131,36 @@ def dateSelectionFixed():
             eclipseInfo.insert(2, f"Date of Eclipse: {eclipse[1]}")
             eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
 
+    def show_smallbody():
+            smallbodyTitle = tk.Label(text= "Is small body visible?", font=("Arial", 20))
+            smallbodyTitle.place(x=480, y=745)
+            smallbodyInfo = tk.Listbox(height=3, width=60, activestyle='dotbox', font=('Arial', 10))
+            smallbodyInfo.place(x = 480, y = 780)
+    
+            month = selected_month.get()
+            year = selected_year.get()
+    
+            smallbody = apcfunc.showSmallbodies(month, year)
+    
+            if smallbody == None:
+                smallbodyInfo.insert(1, "No visible small bodies this month")
+            else:
+                smallbodyInfo.insert(1, f"{smallbody} visible this month")
+                try:
+                    new_window = tk.Toplevel(root)
+                    new_window.title(f"{smallbody} image")
+                    new_window.geometry("320x240")
+                    comet_img = Image.open(f"Resources/Small_bodies/{smallbody}.jpg")
+                    resized_image = comet_img.resize((320, 240), Image.LANCZOS)
+                    tk_image = ImageTk.PhotoImage(resized_image)
+                    image_label = tk.Label(new_window, image=tk_image)
+                    image_label.pack(pady=0)
+                    image_label.image = tk_image
+                except:
+                    print("Error Importing image please try again")
 
-    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), solarSystemView()))
+
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), solarSystemView, show_smallbody()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()

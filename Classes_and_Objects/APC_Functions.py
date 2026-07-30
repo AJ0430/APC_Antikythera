@@ -94,3 +94,15 @@ def showMoonInfo(buttonName):
     # Orb. posistion - determined by solar_lib library that Ashton has implemented
     # cant think of any more functions to add at the moment, but if I do think of any I will add them here
 showEclipses('February', 5, 2000)
+def showSmallbodies(month, year): # If given date results in an date display it in the bottom of the GUI.
+    month_date = str(month)
+    year_date = str(year)
+
+    print(month_date)
+    cursor.execute("""SELECT * FROM SmallBodies WHERE (DATE_START = ? OR DATE_END = ?) AND YEAR = ?""", [month_date, month_date, year_date])
+    smallbodiesInfo = cursor.fetchone()
+    print(smallbodiesInfo)
+    if smallbodiesInfo != None:
+        return smallbodiesInfo[0]
+    else:
+        print('No small bodies visible On This Day.')
