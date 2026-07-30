@@ -60,3 +60,10 @@ motherPlanet.hideturtle()
 #places button to start drawing moon and planet
 start_moonPlanet_drawing = tk.Button(text="Draw Planet and Moon(s)", command = createPlanetAndMoonPopUp)
 start_moonPlanet_drawing.place(x=1120, y=470)
+
+#def showAstrologicalSign():
+#    constellationLabel = ttk.Label(text = "Astrological Sign On Date", font=("Arial", 20))
+#    constellationSelect = dateInfo[month, day]
+#    
+#    cursor.execute(f"SELECT * FROM Zodiac_Constellations WHERE DATE_START >= {constellationSelect} and DATE_END < {constellationSelect}")
+    

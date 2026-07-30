@@ -296,12 +296,6 @@ def com_ast_selection():
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
     btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
 
-def showAstrologicalSign():
-    constellationSelect = dateInfo[month, day]
-    cursor.execute(f"SELECT * FROM Zodiac_Constellations WHERE DATE_START >= {constellationSelect} and DATE_END < {constellationSelect}")
-    popup = tk.Toplevel(root)
-    title = tk.Label("Astrological signs")
-    
 def solarSystemView():
     global planetAnimation
     if planetAnimation == False:
