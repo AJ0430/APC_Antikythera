@@ -8,7 +8,7 @@ tz = ZoneInfo("America/New_York")
 now    = datetime.datetime.now(datetime.UTC)
 
 def rect2polar(coords):
-    return math.degrees(math.atan2(coords[1],coords[0]))
+    return [math.degrees(math.atan2(coords[1],coords[0])), (math.sqrt(math.pow(coords[0], 2)+math.pow(coords[1], 2)))]
 
 def daylightSavings(year, month, day, hour=12, minute=00):
     dst = datetime.datetime(year, month, day, hour, minute, tzinfo=tz)

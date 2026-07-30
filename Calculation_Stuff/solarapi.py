@@ -1,4 +1,4 @@
-import solarfunc as sf
+from Calculation_Stuff import solarfunc as sf
 
 JMOON_NAMES = {
     "io": "io",
@@ -8,7 +8,7 @@ JMOON_NAMES = {
 }
 
 class Request():
-    def __init__(self, REQ, year, month=1, day=1, hour=12, minute=0, target=None):
+    def __init__(self, REQ, year, month=1, day=1, hour=0, minute=0, target=None):
         self.request = REQ
         self.year = year
         self.month = month
@@ -48,6 +48,9 @@ def handle_request(req):
                 req.hour,
                 req.minute
             )
+            del planets["Ceres"]
+            del planets["Chiron"]
+            del planets["Eris"]
             if req.target is not None:
                 target = req.target.strip().capitalize()
 
@@ -59,8 +62,19 @@ def handle_request(req):
                     return req
             else:
                 req.payload = {}
+                minimum = 9999
+                maximum = 0
+                for name, coord in planets.items(): 
+                    if sf.rect2polar(sf.strip_z(coord))[1] > maximum:
+                        maximum = sf.rect2polar(sf.strip_z(coord))[1]
+                    if sf.rect2polar(sf.strip_z(coord))[1] < minimum:
+                        minimum = sf.rect2polar(sf.strip_z(coord))[1]
+                
                 for name, coord in planets.items():
                     req.payload[name] = sf.rect2polar(sf.strip_z(coord))
+                    normalized = (req.payload[name][1] - minimum) / (maximum - minimum)
+                    scaled = 25 + normalized*(300-25)
+                    req.payload[name][1] = scaled
 
         elif request_type == "sunriseset":
             req.payload = sf.sunriseSet(

@@ -1,6 +1,6 @@
 # this will be the py file that contains all the functions used by the project
 
-from . import APC_Classes_Objects as classes   # imports all code from our classes and objects .py file
+from Classes_and_Objects import APC_Classes_Objects as classes   # imports all code from our classes and objects .py file
 
 import sqlite3
 
