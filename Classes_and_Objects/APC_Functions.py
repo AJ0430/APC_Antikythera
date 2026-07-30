@@ -54,6 +54,7 @@ def showEclipses(month, day, year): # If given date results in an eclipse displa
         print(f'Type of Eclipse: {eclipseInfo[0]}')
         print(f'Date of Eclipse: {eclipseInfo[1]}')
         print(f'Location of Eclipse: {eclipseInfo[2]}')
+        return eclipseInfo
     else:
         print('No Eclipse Occuring On This Day.')
 
