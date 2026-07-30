@@ -168,7 +168,7 @@ def dateSelectionFixed():
                     print("Error Importing image please try again")
 
 
-    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), solarSystemView(), show_smallbody()))
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), show_smallbody(), solarSystemView()))
     show_btn.place(x = 1210, y = 30)
 
     root.mainloop()
