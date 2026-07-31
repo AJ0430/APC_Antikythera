@@ -284,6 +284,8 @@ def com_ast_selection():
         cometsAsteroidsSelect.insert(5, "Tsuchinshan-ATLAS")
         cometsAsteroidsSelect.insert(6, "Ceres")
         cometsAsteroidsSelect.insert(7, "Vesta")
+        cometsAsteroidsSelect.insert(8, "The Moon")
+
     cSelection = True
     
     def small_bodies_info_window():
@@ -315,30 +317,53 @@ def com_ast_selection():
         except:
             print("Error Importing image please try again")
 
-        cursor.execute(f"SELECT * FROM SmallBodies WHERE NAME = '{smallbodyselect}'")
-        smallbodiesinfo = cursor.fetchone()
+        try:
+            cursor.execute(f"SELECT * FROM SmallBodies WHERE NAME = '{smallbodyselect}'")
+            smallbodiesinfo = cursor.fetchone()
+            
+            informationDisplay.place(x = 920, y = 320)
+            
+            smallbodiestype = smallbodiesinfo[1]  
+            informationDisplay.insert(1, "Type: " + smallbodiestype)
+            
+            
+            smallbodiestype = smallbodiesinfo[2]
+            informationDisplay.insert(2, "Location: " + smallbodiestype)
+            
+            
+            smallbodiestype = smallbodiesinfo[3]
+            informationDisplay.insert(3, "Radius: " + str(smallbodiestype) + " km")
+            
+            
+            smallbodiestype = smallbodiesinfo[4]
+            informationDisplay.insert(4, "Speed: " + str(smallbodiestype) + " km/sec")
+            
+            if smallbodiesinfo[7] != 0:
+                informationDisplay.insert(5, "Dates visible: " + smallbodiesinfo[5] + " - " + smallbodiesinfo[6] + " " + str(smallbodiesinfo[7]) )
+            else:
+                informationDisplay.insert(5, "Dates visible: " + smallbodiesinfo[5] )      
 
-        informationDisplay.place(x = 920, y = 320)
+        except:
+            cursor.execute(f"SELECT * FROM Moons WHERE NAME = '{smallbodyselect}'")
+            smallbodiesinfo = cursor.fetchone()
+            
+            informationDisplay.place(x = 920, y = 320)
+            smallbodiestype = smallbodiesinfo[1]  
+            informationDisplay.insert(1, "Type: Moon")
+            informationDisplay.insert(2, "Radius:" + str(smallbodiestype))
+            
+            smallbodiestype = smallbodiesinfo[2]
+            informationDisplay.insert(3, "Mass: " + str(smallbodiestype))
+            
+            
+            smallbodiestype = smallbodiesinfo[3]
+            informationDisplay.insert(3, "Gravitational Pull: " + str(smallbodiestype) + " m/s")
+            
+            
+            smallbodiestype = smallbodiesinfo[5]
+            informationDisplay.insert(4, "Orbited Planet: " + smallbodiestype)
 
-        smallbodiestype = smallbodiesinfo[1]  
-        informationDisplay.insert(1, "Type: " + smallbodiestype)
 
-
-        smallbodiestype = smallbodiesinfo[2]
-        informationDisplay.insert(2, "Location: " + smallbodiestype)
-
-
-        smallbodiestype = smallbodiesinfo[3]
-        informationDisplay.insert(3, "Radius: " + str(smallbodiestype) + " km")
-
-
-        smallbodiestype = smallbodiesinfo[4]
-        informationDisplay.insert(4, "Speed: " + str(smallbodiestype) + " km/sec")
-
-        if smallbodiesinfo[7] != 0:
-            informationDisplay.insert(5, "Dates visible: " + smallbodiesinfo[5] + " - " + smallbodiesinfo[6] + " " + str(smallbodiesinfo[7]) )
-        else:
-            informationDisplay.insert(5, "Dates visible: " + smallbodiesinfo[5] )
     
 
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
