@@ -9,7 +9,6 @@ from math import *
 from Calculation_Stuff import solarapi as api
 from datetime import datetime, timedelta
 
-
 #Please let me know if these imports are blocking anything or can be improved to use our classes - Rafael
 from tkinter import messagebox
 
@@ -47,11 +46,8 @@ class Planet(turtle.RawTurtle):
         
         self.goto(sunObject.xcor()+x, sunObject.ycor()+y)
 
-global month
 month = "January"
-global day
 day = 1
-global year
 year = 2000
 global pSelection
 global cSelection
@@ -64,7 +60,8 @@ planetAnimation = False
 # fixed date selection tab that works on the main window
 def dateSelectionFixed():
     title = ttk.Label(text = "Select date:", font=("Arial", 20))
-    title.place(x = 1000, y = 0)
+    # re-placed
+    title.place(x = 25, y = 660)
     # List of Months
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
@@ -74,8 +71,9 @@ def dateSelectionFixed():
     # Create dropdown
     monthDropdown = tk.OptionMenu(root, selected_month, *months)  # Call changeDay when month changes
 
-    #monthDropdown.config(width=15)  
-    monthDropdown.place(x = 1150, y = 0)
+    # monthDropdown.config(width=15)  
+    # re-placed
+    monthDropdown.place(x = 175, y = 660)
 
     # List of Years (2000 to 2030)
     years = [str(year) for year in range(2000, 2031)]
@@ -85,7 +83,8 @@ def dateSelectionFixed():
 
     # Create dropdown
     yearDropdown = tk.OptionMenu(root, selected_year, *years)  # Call changeDay when year changes
-    yearDropdown.place(x = 1280, y = 0)
+    # re-placed
+    yearDropdown.place(x = 315, y = 660)
 
     
     # Makes 1st the default selection in the dropdown
@@ -94,7 +93,8 @@ def dateSelectionFixed():
 
     # Create dropdown
     dayDropdown = tk.OptionMenu(root, selected_day, *days) 
-    dayDropdown.place(x = 1225, y = 0)
+    # re-placed
+    dayDropdown.place(x = 260, y = 660)
 
 
     # Button to show current selection
@@ -112,17 +112,25 @@ def dateSelectionFixed():
         
         # saves the selected date and exits the date selection window
         else:
+            global dateInfo
+            dateInfo = [selected_month.get(), selected_day.get(), selected_year.get()]
+            print (dateInfo)
             current = "Current Selection: " + selected_month.get() + " " + selected_day.get() + ", " + selected_year.get()
 
     def show_EclipseMenu():
+        # creates a title for the eclipse information
         eclipseTitle = tk.Label(text= "Eclipse Info", font=("Arial", 20))
-        eclipseTitle.place(x=1000, y=65)
-        eclipseInfo = tk.Listbox(height=3, width=60, activestyle='dotbox', font=('Arial', 10))
-        eclipseInfo.place(x = 1000, y = 100)
-        global year
+        # re-placed
+        eclipseTitle.place(x=380, y=660)
+
+        # displays eclipse information from the database
+        eclipseInfo = tk.Listbox(height=3, width=40, activestyle='dotbox', font=('Arial', 10))
+        # re-placed
+        eclipseInfo.place(x = 380, y = 690)
+
         global month
         global day
-
+        global year
         month = selected_month.get()
         day = selected_day.get()
         year = selected_year.get()
@@ -138,12 +146,12 @@ def dateSelectionFixed():
             eclipseInfo.insert(1, f"Type of Eclipse: {eclipse[0]}")
             eclipseInfo.insert(2, f"Date of Eclipse: {eclipse[1]}")
             eclipseInfo.insert(3, f"Location of Eclipse: {eclipse[2]}")
-
-    def show_smallbody():
+            
+        def show_smallbody():
             smallbodyTitle = tk.Label(text= "Is small body visible?", font=("Arial", 20))
-            smallbodyTitle.place(x=480, y=745)
+            smallbodyTitle.place(x=660, y=660)
             smallbodyInfo = tk.Listbox(height=3, width=60, activestyle='dotbox', font=('Arial', 10))
-            smallbodyInfo.place(x = 480, y = 780)
+            smallbodyInfo.place(x = 660, y = 690)
     
             month = selected_month.get()
             year = selected_year.get()
@@ -168,12 +176,12 @@ def dateSelectionFixed():
                     print("Error Importing image please try again")
 
 
-    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), show_smallbody(), solarSystemView()))
-    show_btn.place(x = 1210, y = 30)
+    show_btn = tk.Button(root, text="Confirm Date", command=lambda:(show_selection(), show_EclipseMenu(), solarSystemView(), show_smallbody()))
+    # re-placed
+    show_btn.place(x = 240, y = 695)
 
     root.mainloop()
-    global dateInfo
-    dateInfo = [selected_month.get(), selected_day.get(), selected_year.get()]
+    
 
 
 # the planet selection window that shows all the information on the planet selected - Joe
@@ -189,13 +197,13 @@ def openPlanetWindow(info):
 
     # creates a window with the title being the name of the planet
     window = tk.Label(text = info[0] + " Major Body Information", font=("Arial", 20))
-    window.place(x = 1000, y = 200)
+    window.place(x = 920, y = 0)
     informationDisplay = tk.Listbox(height = 8, 
                   width = 35, 
                   activestyle = 'dotbox', 
                   font = "ComicSansMS",
                   fg = "black")
-    informationDisplay.place(x = 1000, y = 235)
+    informationDisplay.place(x = 920, y = 35)
     informationDisplay.insert(1, f"Radius: {info[1]}km")
     informationDisplay.insert(2, f"Mass: {info[2]}kg")
     informationDisplay.insert(3, f"Planet Type: {info[3]}")
@@ -211,14 +219,16 @@ def planet_selection():
     if pSelection == False:
         # list of planets for selection
         title = ttk.Label(text = "Major Bodies", font=("Arial", 20))
-        title.grid(row = 0, column = 0, padx=10, pady=10, sticky="W")
+        # re-placed
+        title.place(x = 680, y = 0)
 
         planetSelect = tk.Listbox(height = 9, 
                   width = 20, 
                   activestyle = 'dotbox', 
                   font = "ComicSansMS",
                   fg = "black")
-        planetSelect.grid(row = 1, column = 0, padx=10, pady=10, sticky="W")
+        # re-placed
+        planetSelect.place(x = 680, y = 35)
 
         planetSelect.insert(1, "Mercury")
         planetSelect.insert(2, "Venus")
@@ -246,7 +256,8 @@ def planet_selection():
     
     # creates a button on the planet selection window which when pressed, will show the appropriate information for the planet selected
     infoButton = tk.Button(root, text="Planet Information",command=show_selected_planet)
-    infoButton.grid(row=2, column=0, padx=10, pady=5, sticky="W")
+    # re-placed
+    infoButton.place(x = 735, y = 255)
 
 # creates a listbox of the minor bodies and places them in the menu
 def com_ast_selection():
@@ -255,14 +266,16 @@ def com_ast_selection():
     if cSelection == False:
         # list of commets and asteroids for selection
         title = ttk.Label(text = "Small Bodies", font=("Arial", 20))
-        title.grid(row = 3, column = 0, padx=10, pady=10, sticky="W")
+        # re-placed
+        title.place(x = 680, y = 285)
 
-        cometsAsteroidsSelect = tk.Listbox(height = 10, 
+        cometsAsteroidsSelect = tk.Listbox(height = 8, 
                   width = 20, 
                   activestyle = 'dotbox', 
                   font = "ComicSansMS",
                   fg = "black")
-        cometsAsteroidsSelect.grid(row = 4, column = 0, padx=10, pady=10, sticky="W")
+        # re-placed
+        cometsAsteroidsSelect.place(x = 680, y = 315)
 
         cometsAsteroidsSelect.insert(1, "McNaught")
         cometsAsteroidsSelect.insert(2, "Halleys")
@@ -280,9 +293,9 @@ def com_ast_selection():
         # Gets the cursor of what is selected from the list
         for i in cometsAsteroidsSelect.curselection():
             smallbodyselect = cometsAsteroidsSelect.get(i)
-        
-        title = ttk.Label(text = smallbodyselect + " Small Body Information                                                   ", font=("Arial", 20))
-        title.place(x = 1000, y = 445)
+
+        title = ttk.Label(text = smallbodyselect + " Small Body Information", font=("Arial", 20))
+        title.place(x = 920, y = 285)
 
         informationDisplay = tk.Listbox(height = 5, 
                   width = 35, 
@@ -305,7 +318,7 @@ def com_ast_selection():
         cursor.execute(f"SELECT * FROM SmallBodies WHERE NAME = '{smallbodyselect}'")
         smallbodiesinfo = cursor.fetchone()
 
-        informationDisplay.place(x = 1000, y = 480)
+        informationDisplay.place(x = 920, y = 320)
 
         smallbodiestype = smallbodiesinfo[1]  
         informationDisplay.insert(1, "Type: " + smallbodiestype)
@@ -329,13 +342,11 @@ def com_ast_selection():
     
 
     btn = tk.Button(root, text="Small Bodies Information",command=small_bodies_info_window)
-    btn.grid(row=5, column=0, padx=10, pady=5, sticky="W")
-
-
+    # re-placed
+    btn.place(x = 710, y = 515)
 
 def increment_datetime(start_date, inc):
     return start_date + timedelta(hours=inc)
-
 
 def solarSystemView():
     global planetAnimation
@@ -367,12 +378,13 @@ def solarSystemView():
                 i.move_solarSystem()
                 i.pendown()
         
-        while True: #placeholder to calculate angle based on date entered
+        while (True): #placeholder to calculate angle based on date entered
             canvas.update()
             current_time = increment_datetime(start_date, inc)
             print(f"{current_time.year},{current_time.month}, {current_time.day}, {current_time.hour}")
             planet_angles_request = api.Request("planets", current_time.year,current_time.month, current_time.day, current_time.hour)
             planet_angles = api.handle_request(planet_angles_request)
+
             for i in solarSystem:
                 i.move_solarSystem()
             mercury.angle = planet_angles.payload["Mercury"][0]
@@ -403,8 +415,9 @@ root.title('Antikythera')
 root.geometry("1920x1080")
 
 # creating solar system graphic location
+# re-placed
 canvas = tk.Canvas(root, width=650, height=650, bg='white')
-canvas.place(x=300, y=0)
+canvas.place(x=10, y=0)
 
 sunScreen = turtle.TurtleScreen(canvas)
 sunObject = turtle.RawTurtle(sunScreen)
@@ -413,8 +426,9 @@ sunObject.setposition(0, 0)
 sunObject.hideturtle()
 
 # places a buttone that starts the drawing of the solar system
+# re-placed
 start_drawing = tk.Button(root, text="Draw System", command=solarSystemView)
-start_drawing.place(x = 600, y = 670)
+start_drawing.place(x = 280, y = 625)
 
 menubar = Menu(root)
 
@@ -432,7 +446,3 @@ command.add_command(label="Open Date Selection", command=dateSelectionFixed)
 command.add_command(label ='Exit Program', command = root.destroy)
 root.config(menu = menubar)
 mainloop()
-
-
-# prints final selected date to consol (for testing purposes)
-print(dateInfo[0] + " " + dateInfo[1] + " " + dateInfo[2])
