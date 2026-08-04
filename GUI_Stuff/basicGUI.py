@@ -46,9 +46,10 @@ class Planet(turtle.RawTurtle):
         
         self.goto(sunObject.xcor()+x, sunObject.ycor()+y)
 
-month = "January"
-day = 1
-year = 2000
+current_date = datetime.now()
+month = current_date.strftime("%B")
+day = current_date.day
+year = current_date.year
 global pSelection
 global cSelection
 pSelection = False
